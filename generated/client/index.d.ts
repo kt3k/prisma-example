@@ -1,46 +1,43 @@
-
 /**
  * Client
-**/
+ */
 
-import * as runtime from './runtime/index';
-declare const prisma: unique symbol
-export type PrismaPromise<A> = Promise<A> & {[prisma]: true}
-type UnwrapPromise<P extends any> = P extends Promise<infer R> ? R : P
+import * as runtime from "./runtime/index";
+declare const prisma: unique symbol;
+export type PrismaPromise<A> = Promise<A> & { [prisma]: true };
+type UnwrapPromise<P extends any> = P extends Promise<infer R> ? R : P;
 type UnwrapTuple<Tuple extends readonly unknown[]> = {
-  [K in keyof Tuple]: K extends `${number}` ? Tuple[K] extends PrismaPromise<infer X> ? X : UnwrapPromise<Tuple[K]> : UnwrapPromise<Tuple[K]>
+  [K in keyof Tuple]: K extends `${number}`
+    ? Tuple[K] extends PrismaPromise<infer X> ? X : UnwrapPromise<Tuple[K]>
+    : UnwrapPromise<Tuple[K]>;
 };
-
 
 /**
  * Model Link
- * 
  */
 export type Link = {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  url: string
-  shortUrl: string
-  userId: string | null
-}
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  url: string;
+  shortUrl: string;
+  userId: string | null;
+};
 
 /**
  * Model User
- * 
  */
 export type User = {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  name: string | null
-  email: string
-}
-
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string | null;
+  email: string;
+};
 
 /**
  * ##  Prisma Client ʲˢ
- * 
+ *
  * Type-safe database client for TypeScript & Node.js
  * @example
  * ```
@@ -49,44 +46,46 @@ export type User = {
  * const links = await prisma.link.findMany()
  * ```
  *
- * 
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 export class PrismaClient<
   T extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof T ? T['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<T['log']> : never : never,
-  GlobalReject = 'rejectOnNotFound' extends keyof T
-    ? T['rejectOnNotFound']
-    : false
-      > {
-      /**
-       * @private
-       */
-      private fetcher;
-      /**
-       * @private
-       */
-      private readonly dmmf;
-      /**
-       * @private
-       */
-      private connectionPromise?;
-      /**
-       * @private
-       */
-      private disconnectionPromise?;
-      /**
-       * @private
-       */
-      private readonly engineConfig;
-      /**
-       * @private
-       */
-      private readonly measurePerformance;
+  U = "log" extends keyof T
+    ? T["log"] extends Array<Prisma.LogLevel | Prisma.LogDefinition>
+      ? Prisma.GetEvents<T["log"]>
+    : never
+    : never,
+  GlobalReject = "rejectOnNotFound" extends keyof T ? T["rejectOnNotFound"]
+    : false,
+> {
+  /**
+   * @private
+   */
+  private fetcher;
+  /**
+   * @private
+   */
+  private readonly dmmf;
+  /**
+   * @private
+   */
+  private connectionPromise?;
+  /**
+   * @private
+   */
+  private disconnectionPromise?;
+  /**
+   * @private
+   */
+  private readonly engineConfig;
+  /**
+   * @private
+   */
+  private readonly measurePerformance;
 
-    /**
+  /**
    * ##  Prisma Client ʲˢ
-   * 
+   *
    * Type-safe database client for TypeScript & Node.js
    * @example
    * ```
@@ -95,12 +94,18 @@ export class PrismaClient<
    * const links = await prisma.link.findMany()
    * ```
    *
-   * 
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
-  constructor(optionsArg ?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
-  $on<V extends (U | 'beforeExit')>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : V extends 'beforeExit' ? () => Promise<void> : Prisma.LogEvent) => void): void;
+  constructor(optionsArg?: Prisma.Subset<T, Prisma.PrismaClientOptions>);
+  $on<V extends (U | "beforeExit")>(
+    eventType: V,
+    callback: (
+      event: V extends "query" ? Prisma.QueryEvent
+        : V extends "beforeExit" ? () => Promise<void>
+        : Prisma.LogEvent,
+    ) => void,
+  ): void;
 
   /**
    * Connect with the database
@@ -115,18 +120,21 @@ export class PrismaClient<
   /**
    * Add a middleware
    */
-  $use(cb: Prisma.Middleware): void
+  $use(cb: Prisma.Middleware): void;
 
-/**
+  /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
    * ```
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
-   * 
+   *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): PrismaPromise<number>;
+  $executeRaw<T = unknown>(
+    query: TemplateStringsArray | Prisma.Sql,
+    ...values: any[]
+  ): PrismaPromise<number>;
 
   /**
    * Executes a raw query and returns the number of affected rows.
@@ -135,10 +143,13 @@ export class PrismaClient<
    * ```
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
-   * 
+   *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): PrismaPromise<number>;
+  $executeRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): PrismaPromise<number>;
 
   /**
    * Performs a prepared raw query and returns the `SELECT` data.
@@ -146,10 +157,13 @@ export class PrismaClient<
    * ```
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
-   * 
+   *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): PrismaPromise<T>;
+  $queryRaw<T = unknown>(
+    query: TemplateStringsArray | Prisma.Sql,
+    ...values: any[]
+  ): PrismaPromise<T>;
 
   /**
    * Performs a raw query and returns the `SELECT` data.
@@ -158,10 +172,13 @@ export class PrismaClient<
    * ```
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
-   * 
+   *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): PrismaPromise<T>;
+  $queryRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): PrismaPromise<T>;
 
   /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
@@ -173,69 +190,71 @@ export class PrismaClient<
    *   prisma.user.create({ data: { name: 'Alice' } }),
    * ])
    * ```
-   * 
+   *
    * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
-  $transaction<P extends PrismaPromise<any>[]>(arg: [...P]): Promise<UnwrapTuple<P>>;
+  $transaction<P extends PrismaPromise<any>[]>(
+    arg: [...P],
+  ): Promise<UnwrapTuple<P>>;
 
-      /**
+  /**
    * `prisma.link`: Exposes CRUD operations for the **Link** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Links
-    * const links = await prisma.link.findMany()
-    * ```
-    */
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Links
+   * const links = await prisma.link.findMany()
+   * ```
+   */
   get link(): Prisma.LinkDelegate<GlobalReject>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Users
-    * const users = await prisma.user.findMany()
-    * ```
-    */
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
+   * ```
+   */
   get user(): Prisma.UserDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
-  export import DMMF = runtime.DMMF
+  export import DMMF = runtime.DMMF;
 
   /**
    * Prisma Errors
    */
-  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError
-  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError
-  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
-  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
-  export import PrismaClientValidationError = runtime.PrismaClientValidationError
+  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
+  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
+  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError;
+  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError;
+  export import PrismaClientValidationError = runtime.PrismaClientValidationError;
 
   /**
    * Re-export of sql-template-tag
    */
-  export import sql = runtime.sqltag
-  export import empty = runtime.empty
-  export import join = runtime.join
-  export import raw = runtime.raw
-  export import Sql = runtime.Sql
+  export import sql = runtime.sqltag;
+  export import empty = runtime.empty;
+  export import join = runtime.join;
+  export import raw = runtime.raw;
+  export import Sql = runtime.Sql;
 
   /**
    * Decimal.js
    */
-  export import Decimal = runtime.Decimal
+  export import Decimal = runtime.Decimal;
 
-  export type DecimalJsLike = runtime.DecimalJsLike
+  export type DecimalJsLike = runtime.DecimalJsLike;
 
   /**
    * Prisma Client JS version: 3.15.2
    * Query Engine version: 461d6a05159055555eb7dfb337c9fb271cbd4d7e
    */
   export type PrismaVersion = {
-    client: string
-  }
+    client: string;
+  };
 
-  export const prismaVersion: PrismaVersion 
+  export const prismaVersion: PrismaVersion;
 
   /**
    * Utility Types
@@ -244,9 +263,9 @@ export namespace Prisma {
   /**
    * From https://github.com/sindresorhus/type-fest/
    * Matches a JSON object.
-   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from. 
+   * This type can be useful to enforce some input to be JSON-compatible or as a super-type to be extended from.
    */
-  export type JsonObject = {[Key in string]?: JsonValue}
+  export type JsonObject = { [Key in string]?: JsonValue };
 
   /**
    * From https://github.com/sindresorhus/type-fest/
@@ -258,19 +277,28 @@ export namespace Prisma {
    * From https://github.com/sindresorhus/type-fest/
    * Matches any valid JSON value.
    */
-  export type JsonValue = string | number | boolean | JsonObject | JsonArray | null
+  export type JsonValue =
+    | string
+    | number
+    | boolean
+    | JsonObject
+    | JsonArray
+    | null;
 
   /**
    * Matches a JSON object.
    * Unlike `JsonObject`, this type allows undefined and read-only properties.
    */
-  export type InputJsonObject = {readonly [Key in string]?: InputJsonValue | null}
+  export type InputJsonObject = {
+    readonly [Key in string]?: InputJsonValue | null;
+  };
 
   /**
    * Matches a JSON array.
    * Unlike `JsonArray`, readonly arrays are assignable to this type.
    */
-  export interface InputJsonArray extends ReadonlyArray<InputJsonValue | null> {}
+  export interface InputJsonArray
+    extends ReadonlyArray<InputJsonValue | null> {}
 
   /**
    * Matches any valid value that can be used as an input for operations like
@@ -285,76 +313,80 @@ export namespace Prisma {
    *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
    */
-  export type InputJsonValue = string | number | boolean | InputJsonObject | InputJsonArray
+  export type InputJsonValue =
+    | string
+    | number
+    | boolean
+    | InputJsonObject
+    | InputJsonArray;
 
   /**
    * Helper for filtering JSON entries that have `null` on the database (empty on the db)
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
-  export const DbNull: 'DbNull'
+  export const DbNull: "DbNull";
 
   /**
    * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
-  export const JsonNull: 'JsonNull'
+  export const JsonNull: "JsonNull";
 
   /**
    * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
-   * 
+   *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
-  export const AnyNull: 'AnyNull'
+  export const AnyNull: "AnyNull";
 
   type SelectAndInclude = {
-    select: any
-    include: any
-  }
+    select: any;
+    include: any;
+  };
   type HasSelect = {
-    select: any
-  }
+    select: any;
+  };
   type HasInclude = {
-    include: any
-  }
+    include: any;
+  };
   type CheckSelect<T, S, U> = T extends SelectAndInclude
-    ? 'Please either choose `select` or `include`'
-    : T extends HasSelect
-    ? U
-    : T extends HasInclude
-    ? U
-    : S
+    ? "Please either choose `select` or `include`"
+    : T extends HasSelect ? U
+    : T extends HasInclude ? U
+    : S;
 
   /**
    * Get the type of the value, that the Promise holds.
    */
-  export type PromiseType<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U : T;
+  export type PromiseType<T extends PromiseLike<any>> = T extends
+    PromiseLike<infer U> ? U : T;
 
   /**
    * Get the return type of a function which returns a Promise.
    */
-  export type PromiseReturnType<T extends (...args: any) => Promise<any>> = PromiseType<ReturnType<T>>
+  export type PromiseReturnType<T extends (...args: any) => Promise<any>> =
+    PromiseType<ReturnType<T>>;
 
   /**
    * From T, pick a set of properties whose keys are in the union K
    */
   type Prisma__Pick<T, K extends keyof T> = {
-      [P in K]: T[P];
+    [P in K]: T[P];
   };
-
 
   export type Enumerable<T> = T | Array<T>;
 
   export type RequiredKeys<T> = {
-    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K
-  }[keyof T]
+    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K;
+  }[keyof T];
 
   export type TruthyKeys<T> = {
-    [key in keyof T]: T[key] extends false | undefined | null ? never : key
-  }[keyof T]
+    [key in keyof T]: T[key] extends false | undefined | null ? never : key;
+  }[keyof T];
 
-  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>
+  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>;
 
   /**
    * Subset
@@ -369,21 +401,23 @@ export namespace Prisma {
    * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
    * Additionally, it validates, if both select and include are present. If the case, it errors.
    */
-  export type SelectSubset<T, U> = {
-    [key in keyof T]: key extends keyof U ? T[key] : never
-  } &
-    (T extends SelectAndInclude
-      ? 'Please either choose `select` or `include`.'
-      : {})
+  export type SelectSubset<T, U> =
+    & {
+      [key in keyof T]: key extends keyof U ? T[key] : never;
+    }
+    & (T extends SelectAndInclude
+      ? "Please either choose `select` or `include`."
+      : {});
 
   /**
    * Subset + Intersection
    * @desc From `T` pick properties that exist in `U` and intersect `K`
    */
-  export type SubsetIntersection<T, U, K> = {
-    [key in keyof T]: key extends keyof U ? T[key] : never
-  } &
-    K
+  export type SubsetIntersection<T, U, K> =
+    & {
+      [key in keyof T]: key extends keyof U ? T[key] : never;
+    }
+    & K;
 
   type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 
@@ -391,106 +425,120 @@ export namespace Prisma {
    * XOR is needed to have a real mutually exclusive union type
    * https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
    */
-  type XOR<T, U> =
-    T extends object ?
-    U extends object ?
-      (Without<T, U> & U) | (Without<U, T> & T)
-    : U : T
-
+  type XOR<T, U> = T extends object
+    ? U extends object ? (Without<T, U> & U) | (Without<U, T> & T)
+    : U
+    : T;
 
   /**
    * Is T a Record?
    */
-  type IsObject<T extends any> = T extends Array<any>
-  ? False
-  : T extends Date
-  ? False
-  : T extends Buffer
-  ? False
-  : T extends BigInt
-  ? False
-  : T extends object
-  ? True
-  : False
-
+  type IsObject<T extends any> = T extends Array<any> ? False
+    : T extends Date ? False
+    : T extends Buffer ? False
+    : T extends BigInt ? False
+    : T extends object ? True
+    : False;
 
   /**
    * If it's T[], return T
    */
-  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T
+  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T;
 
   /**
    * From ts-toolbelt
    */
 
-  type __Either<O extends object, K extends Key> = Omit<O, K> &
-    {
+  type __Either<O extends object, K extends Key> =
+    & Omit<O, K>
+    & {
       // Merge all but K
-      [P in K]: Prisma__Pick<O, P & keyof O> // With K possibilities
-    }[K]
+      [P in K]: Prisma__Pick<O, P & keyof O>; // With K possibilities
+    }[K];
 
-  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>
+  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>;
 
-  type EitherLoose<O extends object, K extends Key> = ComputeRaw<__Either<O, K>>
+  type EitherLoose<O extends object, K extends Key> = ComputeRaw<
+    __Either<O, K>
+  >;
 
   type _Either<
     O extends object,
     K extends Key,
-    strict extends Boolean
+    strict extends Boolean,
   > = {
-    1: EitherStrict<O, K>
-    0: EitherLoose<O, K>
-  }[strict]
+    1: EitherStrict<O, K>;
+    0: EitherLoose<O, K>;
+  }[strict];
 
   type Either<
     O extends object,
     K extends Key,
-    strict extends Boolean = 1
-  > = O extends unknown ? _Either<O, K, strict> : never
+    strict extends Boolean = 1,
+  > = O extends unknown ? _Either<O, K, strict> : never;
 
-  export type Union = any
+  export type Union = any;
 
-  type PatchUndefined<O extends object, O1 extends object> = {
-    [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K]
-  } & {}
+  type PatchUndefined<O extends object, O1 extends object> =
+    & {
+      [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K];
+    }
+    & {};
 
   /** Helper Types for "Merge" **/
   export type IntersectOf<U extends Union> = (
     U extends unknown ? (k: U) => void : never
-  ) extends (k: infer I) => void
-    ? I
-    : never
+  ) extends (k: infer I) => void ? I
+    : never;
 
-  export type Overwrite<O extends object, O1 extends object> = {
+  export type Overwrite<O extends object, O1 extends object> =
+    & {
       [K in keyof O]: K extends keyof O1 ? O1[K] : O[K];
-  } & {};
+    }
+    & {};
 
-  type _Merge<U extends object> = IntersectOf<Overwrite<U, {
-      [K in keyof U]-?: At<U, K>;
-  }>>;
+  type _Merge<U extends object> = IntersectOf<
+    Overwrite<
+      U,
+      {
+        [K in keyof U]-?: At<U, K>;
+      }
+    >
+  >;
 
   type Key = string | number | symbol;
-  type AtBasic<O extends object, K extends Key> = K extends keyof O ? O[K] : never;
+  type AtBasic<O extends object, K extends Key> = K extends keyof O ? O[K]
+    : never;
   type AtStrict<O extends object, K extends Key> = O[K & keyof O];
-  type AtLoose<O extends object, K extends Key> = O extends unknown ? AtStrict<O, K> : never;
-  export type At<O extends object, K extends Key, strict extends Boolean = 1> = {
+  type AtLoose<O extends object, K extends Key> = O extends unknown
+    ? AtStrict<O, K>
+    : never;
+  export type At<O extends object, K extends Key, strict extends Boolean = 1> =
+    {
       1: AtStrict<O, K>;
       0: AtLoose<O, K>;
-  }[strict];
+    }[strict];
 
-  export type ComputeRaw<A extends any> = A extends Function ? A : {
-    [K in keyof A]: A[K];
-  } & {};
+  export type ComputeRaw<A extends any> = A extends Function ? A
+    : 
+      & {
+        [K in keyof A]: A[K];
+      }
+      & {};
 
-  export type OptionalFlat<O> = {
-    [K in keyof O]?: O[K];
-  } & {};
+  export type OptionalFlat<O> =
+    & {
+      [K in keyof O]?: O[K];
+    }
+    & {};
 
   type _Record<K extends keyof any, T> = {
     [P in K]: T;
   };
 
-  type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
+  type _Strict<U, _U = U> = U extends unknown
+    ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>>
+    : never;
 
   export type Strict<U extends object> = ComputeRaw<_Strict<U>>;
   /** End Helper Types for "Merge" **/
@@ -500,51 +548,50 @@ export namespace Prisma {
   /**
   A [[Boolean]]
   */
-  export type Boolean = True | False
+  export type Boolean = True | False;
 
   // /**
   // 1
   // */
-  export type True = 1
+  export type True = 1;
 
   /**
   0
   */
-  export type False = 0
+  export type False = 0;
 
   export type Not<B extends Boolean> = {
-    0: 1
-    1: 0
-  }[B]
+    0: 1;
+    1: 0;
+  }[B];
 
-  export type Extends<A1 extends any, A2 extends any> = [A1] extends [never]
-    ? 0 // anything `never` is false
-    : A1 extends A2
-    ? 1
-    : 0
+  export type Extends<A1 extends any, A2 extends any> = [A1] extends [never] ? 0 // anything `never` is false
+    : A1 extends A2 ? 1
+    : 0;
 
   export type Has<U extends Union, U1 extends Union> = Not<
     Extends<Exclude<U1, U>, U1>
-  >
+  >;
 
   export type Or<B1 extends Boolean, B2 extends Boolean> = {
     0: {
-      0: 0
-      1: 1
-    }
+      0: 0;
+      1: 1;
+    };
     1: {
-      0: 1
-      1: 1
-    }
-  }[B1][B2]
+      0: 1;
+      1: 1;
+    };
+  }[B1][B2];
 
-  export type Keys<U extends Union> = U extends unknown ? keyof U : never
+  export type Keys<U extends Union> = U extends unknown ? keyof U : never;
 
-  type Exact<A, W = unknown> = 
-  W extends unknown ? A extends Narrowable ? Cast<A, W> : Cast<
-  {[K in keyof A]: K extends keyof W ? Exact<A[K], W[K]> : never},
-  {[K in keyof W]: K extends keyof A ? Exact<A[K], W[K]> : W[K]}>
-  : never;
+  type Exact<A, W = unknown> = W extends unknown
+    ? A extends Narrowable ? Cast<A, W> : Cast<
+      { [K in keyof A]: K extends keyof W ? Exact<A[K], W[K]> : never },
+      { [K in keyof W]: K extends keyof A ? Exact<A[K], W[K]> : W[K] }
+    >
+    : never;
 
   type Narrowable = string | number | boolean | bigint;
 
@@ -559,98 +606,121 @@ export namespace Prisma {
    */
 
   export type GetScalarType<T, O> = O extends object ? {
-    [P in keyof T]: P extends keyof O
-      ? O[P]
-      : never
-  } : never
+    [P in keyof T]: P extends keyof O ? O[P]
+      : never;
+  }
+    : never;
 
   type FieldPaths<
     T,
-    U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>
-  > = IsObject<T> extends True ? U : T
+    U = Omit<T, "_avg" | "_sum" | "_count" | "_min" | "_max">,
+  > = IsObject<T> extends True ? U : T;
 
   type GetHavingFields<T> = {
     [K in keyof T]: Or<
-      Or<Extends<'OR', K>, Extends<'AND', K>>,
-      Extends<'NOT', K>
-    > extends True
-      ? // infer is only needed to not hit TS limit
-        // based on the brilliant idea of Pierre-Antoine Mills
-        // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
-        T[K] extends infer TK
-        ? GetHavingFields<UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never>
-        : never
-      : {} extends FieldPaths<T[K]>
-      ? never
-      : K
-  }[keyof T]
+      Or<Extends<"OR", K>, Extends<"AND", K>>,
+      Extends<"NOT", K>
+    > extends True ? // infer is only needed to not hit TS limit
+    // based on the brilliant idea of Pierre-Antoine Mills
+    // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
+    T[K] extends infer TK ? GetHavingFields<
+      UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never
+    >
+    : never
+      : {} extends FieldPaths<T[K]> ? never
+      : K;
+  }[keyof T];
 
   /**
    * Convert tuple to union
    */
-  type _TupleToUnion<T> = T extends (infer E)[] ? E : never
-  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>
-  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
+  type _TupleToUnion<T> = T extends (infer E)[] ? E : never;
+  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>;
+  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T;
 
   /**
    * Like `Pick`, but with an array
    */
-  type PickArray<T, K extends Array<keyof T>> = Prisma__Pick<T, TupleToUnion<K>>
+  type PickArray<T, K extends Array<keyof T>> = Prisma__Pick<
+    T,
+    TupleToUnion<K>
+  >;
 
   /**
    * Exclude all keys with underscores
    */
-  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never : T
+  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never
+    : T;
 
   class PrismaClientFetcher {
     private readonly prisma;
     private readonly debug;
     private readonly hooks?;
-    constructor(prisma: PrismaClient<any, any>, debug?: boolean, hooks?: Hooks | undefined);
-    request<T>(document: any, dataPath?: string[], rootField?: string, typeName?: string, isList?: boolean, callsite?: string): Promise<T>;
+    constructor(
+      prisma: PrismaClient<any, any>,
+      debug?: boolean,
+      hooks?: Hooks | undefined,
+    );
+    request<T>(
+      document: any,
+      dataPath?: string[],
+      rootField?: string,
+      typeName?: string,
+      isList?: boolean,
+      callsite?: string,
+    ): Promise<T>;
     sanitizeMessage(message: string): string;
-    protected unpack(document: any, data: any, path: string[], rootField?: string, isList?: boolean): any;
+    protected unpack(
+      document: any,
+      data: any,
+      path: string[],
+      rootField?: string,
+      isList?: boolean,
+    ): any;
   }
 
   export const ModelName: {
-    Link: 'Link',
-    User: 'User'
+    Link: "Link";
+    User: "User";
   };
 
-  export type ModelName = (typeof ModelName)[keyof typeof ModelName]
-
+  export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 
   export type Datasources = {
-    db?: Datasource
-  }
+    db?: Datasource;
+  };
 
-  export type RejectOnNotFound = boolean | ((error: Error) => Error)
-  export type RejectPerModel = { [P in ModelName]?: RejectOnNotFound }
-  export type RejectPerOperation =  { [P in "findUnique" | "findFirst"]?: RejectPerModel | RejectOnNotFound } 
-  type IsReject<T> = T extends true ? True : T extends (err: Error) => Error ? True : False
+  export type RejectOnNotFound = boolean | ((error: Error) => Error);
+  export type RejectPerModel = { [P in ModelName]?: RejectOnNotFound };
+  export type RejectPerOperation = {
+    [P in "findUnique" | "findFirst"]?: RejectPerModel | RejectOnNotFound;
+  };
+  type IsReject<T> = T extends true ? True
+    : T extends (err: Error) => Error ? True
+    : False;
   export type HasReject<
-    GlobalRejectSettings extends Prisma.PrismaClientOptions['rejectOnNotFound'],
+    GlobalRejectSettings extends Prisma.PrismaClientOptions["rejectOnNotFound"],
     LocalRejectSettings,
     Action extends PrismaAction,
-    Model extends ModelName
+    Model extends ModelName,
   > = LocalRejectSettings extends RejectOnNotFound
     ? IsReject<LocalRejectSettings>
     : GlobalRejectSettings extends RejectPerOperation
-    ? Action extends keyof GlobalRejectSettings
-      ? GlobalRejectSettings[Action] extends RejectOnNotFound
-        ? IsReject<GlobalRejectSettings[Action]>
+      ? Action extends keyof GlobalRejectSettings
+        ? GlobalRejectSettings[Action] extends RejectOnNotFound
+          ? IsReject<GlobalRejectSettings[Action]>
         : GlobalRejectSettings[Action] extends RejectPerModel
-        ? Model extends keyof GlobalRejectSettings[Action]
-          ? IsReject<GlobalRejectSettings[Action][Model]>
+          ? Model extends keyof GlobalRejectSettings[Action]
+            ? IsReject<GlobalRejectSettings[Action][Model]>
           : False
         : False
       : False
-    : IsReject<GlobalRejectSettings>
-  export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
+    : IsReject<GlobalRejectSettings>;
+  export type ErrorFormat = "pretty" | "colorless" | "minimal";
 
   export interface PrismaClientOptions {
     /**
-     * Configure findUnique/findFirst to throw an error if the query returns null. 
+     * Configure findUnique/findFirst to throw an error if the query returns null.
      *  * @example
      * ```
      * // Reject on both findUnique/findFirst
@@ -661,23 +731,23 @@ export namespace Prisma {
      * rejectOnNotFound: { findUnique: {User: (err) => new Error("User not found")}}
      * ```
      */
-    rejectOnNotFound?: RejectOnNotFound | RejectPerOperation
+    rejectOnNotFound?: RejectOnNotFound | RejectPerOperation;
     /**
      * Overwrites the datasource url from your prisma.schema file
      */
-    datasources?: Datasources
+    datasources?: Datasources;
 
     /**
      * @default "colorless"
      */
-    errorFormat?: ErrorFormat
+    errorFormat?: ErrorFormat;
 
     /**
      * @example
      * ```
      * // Defaults to stdout
      * log: ['query', 'info', 'warn', 'error']
-     * 
+     *
      * // Emit as events
      * log: [
      *  { emit: 'stdout', level: 'query' },
@@ -688,69 +758,78 @@ export namespace Prisma {
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
-    log?: Array<LogLevel | LogDefinition>
+    log?: Array<LogLevel | LogDefinition>;
   }
 
   export type Hooks = {
-    beforeRequest?: (options: { query: string, path: string[], rootField?: string, typeName?: string, document: any }) => any
-  }
+    beforeRequest?: (
+      options: {
+        query: string;
+        path: string[];
+        rootField?: string;
+        typeName?: string;
+        document: any;
+      },
+    ) => any;
+  };
 
   /* Types for Logging */
-  export type LogLevel = 'info' | 'query' | 'warn' | 'error'
+  export type LogLevel = "info" | "query" | "warn" | "error";
   export type LogDefinition = {
-    level: LogLevel
-    emit: 'stdout' | 'event'
-  }
+    level: LogLevel;
+    emit: "stdout" | "event";
+  };
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type GetLogType<T extends LogLevel | LogDefinition> = T extends
+    LogDefinition ? T["emit"] extends "event" ? T["level"] : never : never;
+  export type GetEvents<T extends any> = T extends
+    Array<LogLevel | LogDefinition>
+    ? GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
+    : never;
 
   export type QueryEvent = {
-    timestamp: Date
-    query: string
-    params: string
-    duration: number
-    target: string
-  }
+    timestamp: Date;
+    query: string;
+    params: string;
+    duration: number;
+    target: string;
+  };
 
   export type LogEvent = {
-    timestamp: Date
-    message: string
-    target: string
-  }
+    timestamp: Date;
+    message: string;
+    target: string;
+  };
   /* End Types for Logging */
 
-
   export type PrismaAction =
-    | 'findUnique'
-    | 'findMany'
-    | 'findFirst'
-    | 'create'
-    | 'createMany'
-    | 'update'
-    | 'updateMany'
-    | 'upsert'
-    | 'delete'
-    | 'deleteMany'
-    | 'executeRaw'
-    | 'queryRaw'
-    | 'aggregate'
-    | 'count'
-    | 'runCommandRaw'
-    | 'findRaw'
+    | "findUnique"
+    | "findMany"
+    | "findFirst"
+    | "create"
+    | "createMany"
+    | "update"
+    | "updateMany"
+    | "upsert"
+    | "delete"
+    | "deleteMany"
+    | "executeRaw"
+    | "queryRaw"
+    | "aggregate"
+    | "count"
+    | "runCommandRaw"
+    | "findRaw";
 
   /**
    * These options are being passed in to the middleware as "params"
    */
   export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
+    model?: ModelName;
+    action: PrismaAction;
+    args: any;
+    dataPath: string[];
+    runInTransaction: boolean;
+  };
 
   /**
    * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
@@ -758,53 +837,47 @@ export namespace Prisma {
   export type Middleware<T = any> = (
     params: MiddlewareParams,
     next: (params: MiddlewareParams) => Promise<T>,
-  ) => Promise<T>
+  ) => Promise<T>;
 
   // tested in getLogLevel.test.ts
-  export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
+  export function getLogLevel(
+    log: Array<LogLevel | LogDefinition>,
+  ): LogLevel | undefined;
 
   export type Datasource = {
-    url?: string
-  }
+    url?: string;
+  };
 
   /**
    * Count Types
    */
 
-
   /**
    * Count Type UserCountOutputType
    */
 
-
   export type UserCountOutputType = {
-    links: number
-  }
+    links: number;
+  };
 
   export type UserCountOutputTypeSelect = {
-    links?: boolean
-  }
+    links?: boolean;
+  };
 
   export type UserCountOutputTypeGetPayload<
     S extends boolean | null | undefined | UserCountOutputTypeArgs,
-    U = keyof S
-      > = S extends true
-        ? UserCountOutputType
-    : S extends undefined
-    ? never
+    U = keyof S,
+  > = S extends true ? UserCountOutputType
+    : S extends undefined ? never
     : S extends UserCountOutputTypeArgs
-    ?'include' extends U
-    ? UserCountOutputType 
-    : 'select' extends U
-    ? {
-    [P in TrueKeys<S['select']>]:
-    P extends keyof UserCountOutputType ? UserCountOutputType[P] : never
-  } 
-    : UserCountOutputType
-  : UserCountOutputType
-
-
-
+      ? "include" extends U ? UserCountOutputType
+      : "select" extends U ? {
+        [P in TrueKeys<S["select"]>]: P extends keyof UserCountOutputType
+          ? UserCountOutputType[P]
+          : never;
+      }
+      : UserCountOutputType
+    : UserCountOutputType;
 
   // Custom InputTypes
 
@@ -814,12 +887,9 @@ export namespace Prisma {
   export type UserCountOutputTypeArgs = {
     /**
      * Select specific fields to fetch from the UserCountOutputType
-     * 
-    **/
-    select?: UserCountOutputTypeSelect | null
-  }
-
-
+     */
+    select?: UserCountOutputTypeSelect | null;
+  };
 
   /**
    * Models
@@ -829,215 +899,200 @@ export namespace Prisma {
    * Model Link
    */
 
-
   export type AggregateLink = {
-    _count: LinkCountAggregateOutputType | null
-    _min: LinkMinAggregateOutputType | null
-    _max: LinkMaxAggregateOutputType | null
-  }
+    _count: LinkCountAggregateOutputType | null;
+    _min: LinkMinAggregateOutputType | null;
+    _max: LinkMaxAggregateOutputType | null;
+  };
 
   export type LinkMinAggregateOutputType = {
-    id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    url: string | null
-    shortUrl: string | null
-    userId: string | null
-  }
+    id: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    url: string | null;
+    shortUrl: string | null;
+    userId: string | null;
+  };
 
   export type LinkMaxAggregateOutputType = {
-    id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    url: string | null
-    shortUrl: string | null
-    userId: string | null
-  }
+    id: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    url: string | null;
+    shortUrl: string | null;
+    userId: string | null;
+  };
 
   export type LinkCountAggregateOutputType = {
-    id: number
-    createdAt: number
-    updatedAt: number
-    url: number
-    shortUrl: number
-    userId: number
-    _all: number
-  }
-
+    id: number;
+    createdAt: number;
+    updatedAt: number;
+    url: number;
+    shortUrl: number;
+    userId: number;
+    _all: number;
+  };
 
   export type LinkMinAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    url?: true
-    shortUrl?: true
-    userId?: true
-  }
+    id?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    url?: true;
+    shortUrl?: true;
+    userId?: true;
+  };
 
   export type LinkMaxAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    url?: true
-    shortUrl?: true
-    userId?: true
-  }
+    id?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    url?: true;
+    shortUrl?: true;
+    userId?: true;
+  };
 
   export type LinkCountAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    url?: true
-    shortUrl?: true
-    userId?: true
-    _all?: true
-  }
+    id?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    url?: true;
+    shortUrl?: true;
+    userId?: true;
+    _all?: true;
+  };
 
   export type LinkAggregateArgs = {
     /**
      * Filter which Link to aggregate.
-     * 
-    **/
-    where?: LinkWhereInput
+     */
+    where?: LinkWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Links to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<LinkOrderByWithRelationInput>
+     */
+    orderBy?: Enumerable<LinkOrderByWithRelationInput>;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
-     * 
-    **/
-    cursor?: LinkWhereUniqueInput
+     */
+    cursor?: LinkWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Links from the position of the cursor.
-     * 
-    **/
-    take?: number
+     */
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Links.
-     * 
-    **/
-    skip?: number
+     */
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Links
-    **/
-    _count?: true | LinkCountAggregateInputType
+     */
+    _count?: true | LinkCountAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
-    **/
-    _min?: LinkMinAggregateInputType
+     */
+    _min?: LinkMinAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
-    **/
-    _max?: LinkMaxAggregateInputType
-  }
+     */
+    _max?: LinkMaxAggregateInputType;
+  };
 
   export type GetLinkAggregateType<T extends LinkAggregateArgs> = {
-        [P in keyof T & keyof AggregateLink]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateLink[P]>
+    [P in keyof T & keyof AggregateLink]: P extends "_count" | "count"
+      ? T[P] extends true ? number
       : GetScalarType<T[P], AggregateLink[P]>
-  }
-
-
-
+      : GetScalarType<T[P], AggregateLink[P]>;
+  };
 
   export type LinkGroupByArgs = {
-    where?: LinkWhereInput
-    orderBy?: Enumerable<LinkOrderByWithAggregationInput>
-    by: Array<LinkScalarFieldEnum>
-    having?: LinkScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: LinkCountAggregateInputType | true
-    _min?: LinkMinAggregateInputType
-    _max?: LinkMaxAggregateInputType
-  }
-
+    where?: LinkWhereInput;
+    orderBy?: Enumerable<LinkOrderByWithAggregationInput>;
+    by: Array<LinkScalarFieldEnum>;
+    having?: LinkScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: LinkCountAggregateInputType | true;
+    _min?: LinkMinAggregateInputType;
+    _max?: LinkMaxAggregateInputType;
+  };
 
   export type LinkGroupByOutputType = {
-    id: string
-    createdAt: Date
-    updatedAt: Date
-    url: string
-    shortUrl: string
-    userId: string | null
-    _count: LinkCountAggregateOutputType | null
-    _min: LinkMinAggregateOutputType | null
-    _max: LinkMaxAggregateOutputType | null
-  }
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    url: string;
+    shortUrl: string;
+    userId: string | null;
+    _count: LinkCountAggregateOutputType | null;
+    _min: LinkMinAggregateOutputType | null;
+    _max: LinkMaxAggregateOutputType | null;
+  };
 
   type GetLinkGroupByPayload<T extends LinkGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<LinkGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof LinkGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], LinkGroupByOutputType[P]>
-            : GetScalarType<T[P], LinkGroupByOutputType[P]>
-        }
-      >
+      & PickArray<LinkGroupByOutputType, T["by"]>
+      & {
+        [P in ((keyof T) & (keyof LinkGroupByOutputType))]: P extends "_count"
+          ? T[P] extends boolean ? number
+          : GetScalarType<T[P], LinkGroupByOutputType[P]>
+          : GetScalarType<T[P], LinkGroupByOutputType[P]>;
+      }
     >
-
+  >;
 
   export type LinkSelect = {
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    url?: boolean
-    shortUrl?: boolean
-    userId?: boolean
-    User?: boolean | UserArgs
-  }
+    id?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    url?: boolean;
+    shortUrl?: boolean;
+    userId?: boolean;
+    User?: boolean | UserArgs;
+  };
 
   export type LinkInclude = {
-    User?: boolean | UserArgs
-  }
+    User?: boolean | UserArgs;
+  };
 
   export type LinkGetPayload<
     S extends boolean | null | undefined | LinkArgs,
-    U = keyof S
-      > = S extends true
-        ? Link
-    : S extends undefined
-    ? never
-    : S extends LinkArgs | LinkFindManyArgs
-    ?'include' extends U
-    ? Link  & {
-    [P in TrueKeys<S['include']>]:
-        P extends 'User' ? UserGetPayload<S['include'][P]> | null :  never
-  } 
-    : 'select' extends U
-    ? {
-    [P in TrueKeys<S['select']>]:
-        P extends 'User' ? UserGetPayload<S['select'][P]> | null :  P extends keyof Link ? Link[P] : never
-  } 
+    U = keyof S,
+  > = S extends true ? Link
+    : S extends undefined ? never
+    : S extends LinkArgs | LinkFindManyArgs ? "include" extends U ? 
+      & Link
+      & {
+        [P in TrueKeys<S["include"]>]: P extends "User"
+          ? UserGetPayload<S["include"][P]> | null
+          : never;
+      }
+    : "select" extends U ? {
+      [P in TrueKeys<S["select"]>]: P extends "User"
+        ? UserGetPayload<S["select"][P]> | null
+        : P extends keyof Link ? Link[P]
+        : never;
+    }
     : Link
-  : Link
-
+    : Link;
 
   type LinkCountArgs = Merge<
-    Omit<LinkFindManyArgs, 'select' | 'include'> & {
-      select?: LinkCountAggregateInputType | true
+    Omit<LinkFindManyArgs, "select" | "include"> & {
+      select?: LinkCountAggregateInputType | true;
     }
-  >
+  >;
 
   export interface LinkDelegate<GlobalRejectSettings> {
     /**
@@ -1050,10 +1105,29 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUnique<T extends LinkFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, LinkFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'Link'> extends True ? CheckSelect<T, Prisma__LinkClient<Link>, Prisma__LinkClient<LinkGetPayload<T>>> : CheckSelect<T, Prisma__LinkClient<Link | null >, Prisma__LinkClient<LinkGetPayload<T> | null >>
+     */
+    findUnique<
+      T extends LinkFindUniqueArgs,
+      LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound
+        ? T["rejectOnNotFound"]
+        : undefined,
+    >(
+      args: SelectSubset<T, LinkFindUniqueArgs>,
+    ): HasReject<
+      GlobalRejectSettings,
+      LocalRejectSettings,
+      "findUnique",
+      "Link"
+    > extends True ? CheckSelect<
+      T,
+      Prisma__LinkClient<Link>,
+      Prisma__LinkClient<LinkGetPayload<T>>
+    >
+      : CheckSelect<
+        T,
+        Prisma__LinkClient<Link | null>,
+        Prisma__LinkClient<LinkGetPayload<T> | null>
+      >;
 
     /**
      * Find the first Link that matches the filter.
@@ -1067,10 +1141,29 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirst<T extends LinkFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, LinkFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'Link'> extends True ? CheckSelect<T, Prisma__LinkClient<Link>, Prisma__LinkClient<LinkGetPayload<T>>> : CheckSelect<T, Prisma__LinkClient<Link | null >, Prisma__LinkClient<LinkGetPayload<T> | null >>
+     */
+    findFirst<
+      T extends LinkFindFirstArgs,
+      LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound
+        ? T["rejectOnNotFound"]
+        : undefined,
+    >(
+      args?: SelectSubset<T, LinkFindFirstArgs>,
+    ): HasReject<
+      GlobalRejectSettings,
+      LocalRejectSettings,
+      "findFirst",
+      "Link"
+    > extends True ? CheckSelect<
+      T,
+      Prisma__LinkClient<Link>,
+      Prisma__LinkClient<LinkGetPayload<T>>
+    >
+      : CheckSelect<
+        T,
+        Prisma__LinkClient<Link | null>,
+        Prisma__LinkClient<LinkGetPayload<T> | null>
+      >;
 
     /**
      * Find zero or more Links that matches the filter.
@@ -1080,17 +1173,20 @@ export namespace Prisma {
      * @example
      * // Get all Links
      * const links = await prisma.link.findMany()
-     * 
+     *
      * // Get first 10 Links
      * const links = await prisma.link.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const linkWithIdOnly = await prisma.link.findMany({ select: { id: true } })
-     * 
-    **/
+     */
     findMany<T extends LinkFindManyArgs>(
-      args?: SelectSubset<T, LinkFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<Link>>, PrismaPromise<Array<LinkGetPayload<T>>>>
+      args?: SelectSubset<T, LinkFindManyArgs>,
+    ): CheckSelect<
+      T,
+      PrismaPromise<Array<Link>>,
+      PrismaPromise<Array<LinkGetPayload<T>>>
+    >;
 
     /**
      * Create a Link.
@@ -1102,11 +1198,14 @@ export namespace Prisma {
      *     // ... data to create a Link
      *   }
      * })
-     * 
-    **/
+     */
     create<T extends LinkCreateArgs>(
-      args: SelectSubset<T, LinkCreateArgs>
-    ): CheckSelect<T, Prisma__LinkClient<Link>, Prisma__LinkClient<LinkGetPayload<T>>>
+      args: SelectSubset<T, LinkCreateArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__LinkClient<Link>,
+      Prisma__LinkClient<LinkGetPayload<T>>
+    >;
 
     /**
      * Create many Links.
@@ -1118,11 +1217,10 @@ export namespace Prisma {
      *         // ... provide data here
      *       }
      *     })
-     *     
-    **/
+     */
     createMany<T extends LinkCreateManyArgs>(
-      args?: SelectSubset<T, LinkCreateManyArgs>
-    ): PrismaPromise<BatchPayload>
+      args?: SelectSubset<T, LinkCreateManyArgs>,
+    ): PrismaPromise<BatchPayload>;
 
     /**
      * Delete a Link.
@@ -1134,11 +1232,14 @@ export namespace Prisma {
      *     // ... filter to delete one Link
      *   }
      * })
-     * 
-    **/
+     */
     delete<T extends LinkDeleteArgs>(
-      args: SelectSubset<T, LinkDeleteArgs>
-    ): CheckSelect<T, Prisma__LinkClient<Link>, Prisma__LinkClient<LinkGetPayload<T>>>
+      args: SelectSubset<T, LinkDeleteArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__LinkClient<Link>,
+      Prisma__LinkClient<LinkGetPayload<T>>
+    >;
 
     /**
      * Update one Link.
@@ -1153,11 +1254,14 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
-    **/
+     */
     update<T extends LinkUpdateArgs>(
-      args: SelectSubset<T, LinkUpdateArgs>
-    ): CheckSelect<T, Prisma__LinkClient<Link>, Prisma__LinkClient<LinkGetPayload<T>>>
+      args: SelectSubset<T, LinkUpdateArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__LinkClient<Link>,
+      Prisma__LinkClient<LinkGetPayload<T>>
+    >;
 
     /**
      * Delete zero or more Links.
@@ -1169,11 +1273,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
-    **/
+     */
     deleteMany<T extends LinkDeleteManyArgs>(
-      args?: SelectSubset<T, LinkDeleteManyArgs>
-    ): PrismaPromise<BatchPayload>
+      args?: SelectSubset<T, LinkDeleteManyArgs>,
+    ): PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Links.
@@ -1190,11 +1293,10 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
-    **/
+     */
     updateMany<T extends LinkUpdateManyArgs>(
-      args: SelectSubset<T, LinkUpdateManyArgs>
-    ): PrismaPromise<BatchPayload>
+      args: SelectSubset<T, LinkUpdateManyArgs>,
+    ): PrismaPromise<BatchPayload>;
 
     /**
      * Create or update one Link.
@@ -1212,10 +1314,14 @@ export namespace Prisma {
      *     // ... the filter for the Link we want to update
      *   }
      * })
-    **/
+     */
     upsert<T extends LinkUpsertArgs>(
-      args: SelectSubset<T, LinkUpsertArgs>
-    ): CheckSelect<T, Prisma__LinkClient<Link>, Prisma__LinkClient<LinkGetPayload<T>>>
+      args: SelectSubset<T, LinkUpsertArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__LinkClient<Link>,
+      Prisma__LinkClient<LinkGetPayload<T>>
+    >;
 
     /**
      * Count the number of Links.
@@ -1229,16 +1335,14 @@ export namespace Prisma {
      *     // ... the filter for the Links we want to count
      *   }
      * })
-    **/
+     */
     count<T extends LinkCountArgs>(
       args?: Subset<T, LinkCountArgs>,
     ): PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], LinkCountAggregateOutputType>
+      T extends _Record<"select", any> ? T["select"] extends true ? number
+      : GetScalarType<T["select"], LinkCountAggregateOutputType>
         : number
-    >
+    >;
 
     /**
      * Allows you to perform aggregations operations on a Link.
@@ -1263,8 +1367,10 @@ export namespace Prisma {
      *   },
      *   take: 10,
      * })
-    **/
-    aggregate<T extends LinkAggregateArgs>(args: Subset<T, LinkAggregateArgs>): PrismaPromise<GetLinkAggregateType<T>>
+     */
+    aggregate<T extends LinkAggregateArgs>(
+      args: Subset<T, LinkAggregateArgs>,
+    ): PrismaPromise<GetLinkAggregateType<T>>;
 
     /**
      * Group by Link.
@@ -1282,66 +1388,60 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
-    **/
+     */
     groupBy<
       T extends LinkGroupByArgs,
       HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: LinkGroupByArgs['orderBy'] }
-        : { orderBy?: LinkGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+        ? { orderBy: LinkGroupByArgs["orderBy"] }
+        : { orderBy?: LinkGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends TupleToUnion<T["by"]>,
       ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
+      HavingFields extends GetHavingFields<T["having"]>,
       HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
+      ByEmpty extends T["by"] extends never[] ? True : False,
       InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False ? {
+          [P in HavingFields]: P extends ByFields ? never
             : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+              ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
             : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
+              Error,
+              "Field ",
+              P,
+              ` in "having" needs to be provided in "by"`,
+            ];
         }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
+        : "take" extends Keys<T>
+          ? "orderBy" extends Keys<T> ? ByValid extends True ? {}
           : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
+            [P in OrderFields]: P extends ByFields ? never
+              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+          }[OrderFields]
+          : 'Error: If you provide "take", you also need to provide "orderBy"'
+        : "skip" extends Keys<T>
+          ? "orderBy" extends Keys<T> ? ByValid extends True ? {}
           : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, LinkGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLinkGroupByPayload<T> : PrismaPromise<InputErrors>
+            [P in OrderFields]: P extends ByFields ? never
+              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+          }[OrderFields]
+          : 'Error: If you provide "skip", you also need to provide "orderBy"'
+        : ByValid extends True ? {}
+        : {
+          [P in OrderFields]: P extends ByFields ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+        }[OrderFields],
+    >(
+      args: SubsetIntersection<T, LinkGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors ? GetLinkGroupByPayload<T>
+      : PrismaPromise<InputErrors>;
   }
 
   /**
@@ -1364,10 +1464,27 @@ export namespace Prisma {
     private _isList;
     private _callsite;
     private _requestPromise?;
-    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+    constructor(
+      _dmmf: runtime.DMMFClass,
+      _fetcher: PrismaClientFetcher,
+      _queryType: "query" | "mutation",
+      _rootField: string,
+      _clientMethod: string,
+      _args: any,
+      _dataPath: string[],
+      _errorFormat: ErrorFormat,
+      _measurePerformance?: boolean | undefined,
+      _isList?: boolean,
+    );
+    readonly [Symbol.toStringTag]: "PrismaClientPromise";
 
-    User<T extends UserArgs = {}>(args?: Subset<T, UserArgs>): CheckSelect<T, Prisma__UserClient<User | null >, Prisma__UserClient<UserGetPayload<T> | null >>;
+    User<T extends UserArgs = {}>(
+      args?: Subset<T, UserArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__UserClient<User | null>,
+      Prisma__UserClient<UserGetPayload<T> | null>
+    >;
 
     private get _document();
     /**
@@ -1376,13 +1493,27 @@ export namespace Prisma {
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): Promise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): Promise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
@@ -1400,26 +1531,21 @@ export namespace Prisma {
   export type LinkFindUniqueArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
+     */
+    include?: LinkInclude | null;
     /**
      * Throw an Error if a Link can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
+     */
+    rejectOnNotFound?: RejectOnNotFound;
     /**
      * Filter, which Link to fetch.
-     * 
-    **/
-    where: LinkWhereUniqueInput
-  }
-
+     */
+    where: LinkWhereUniqueInput;
+  };
 
   /**
    * Link findFirst
@@ -1427,61 +1553,51 @@ export namespace Prisma {
   export type LinkFindFirstArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
+     */
+    include?: LinkInclude | null;
     /**
      * Throw an Error if a Link can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
+     */
+    rejectOnNotFound?: RejectOnNotFound;
     /**
      * Filter, which Link to fetch.
-     * 
-    **/
-    where?: LinkWhereInput
+     */
+    where?: LinkWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Links to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<LinkOrderByWithRelationInput>
+     */
+    orderBy?: Enumerable<LinkOrderByWithRelationInput>;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Links.
-     * 
-    **/
-    cursor?: LinkWhereUniqueInput
+     */
+    cursor?: LinkWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Links from the position of the cursor.
-     * 
-    **/
-    take?: number
+     */
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Links.
-     * 
-    **/
-    skip?: number
+     */
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Links.
-     * 
-    **/
-    distinct?: Enumerable<LinkScalarFieldEnum>
-  }
-
+     */
+    distinct?: Enumerable<LinkScalarFieldEnum>;
+  };
 
   /**
    * Link findMany
@@ -1489,50 +1605,42 @@ export namespace Prisma {
   export type LinkFindManyArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
+     */
+    include?: LinkInclude | null;
     /**
      * Filter, which Links to fetch.
-     * 
-    **/
-    where?: LinkWhereInput
+     */
+    where?: LinkWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Links to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<LinkOrderByWithRelationInput>
+     */
+    orderBy?: Enumerable<LinkOrderByWithRelationInput>;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Links.
-     * 
-    **/
-    cursor?: LinkWhereUniqueInput
+     */
+    cursor?: LinkWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Links from the position of the cursor.
-     * 
-    **/
-    take?: number
+     */
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Links.
-     * 
-    **/
-    skip?: number
-    distinct?: Enumerable<LinkScalarFieldEnum>
-  }
-
+     */
+    skip?: number;
+    distinct?: Enumerable<LinkScalarFieldEnum>;
+  };
 
   /**
    * Link create
@@ -1540,21 +1648,17 @@ export namespace Prisma {
   export type LinkCreateArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
+     */
+    include?: LinkInclude | null;
     /**
      * The data needed to create a Link.
-     * 
-    **/
-    data: XOR<LinkCreateInput, LinkUncheckedCreateInput>
-  }
-
+     */
+    data: XOR<LinkCreateInput, LinkUncheckedCreateInput>;
+  };
 
   /**
    * Link createMany
@@ -1562,12 +1666,10 @@ export namespace Prisma {
   export type LinkCreateManyArgs = {
     /**
      * The data used to create many Links.
-     * 
-    **/
-    data: Enumerable<LinkCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
+     */
+    data: Enumerable<LinkCreateManyInput>;
+    skipDuplicates?: boolean;
+  };
 
   /**
    * Link update
@@ -1575,26 +1677,21 @@ export namespace Prisma {
   export type LinkUpdateArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
+     */
+    include?: LinkInclude | null;
     /**
      * The data needed to update a Link.
-     * 
-    **/
-    data: XOR<LinkUpdateInput, LinkUncheckedUpdateInput>
+     */
+    data: XOR<LinkUpdateInput, LinkUncheckedUpdateInput>;
     /**
      * Choose, which Link to update.
-     * 
-    **/
-    where: LinkWhereUniqueInput
-  }
-
+     */
+    where: LinkWhereUniqueInput;
+  };
 
   /**
    * Link updateMany
@@ -1602,16 +1699,13 @@ export namespace Prisma {
   export type LinkUpdateManyArgs = {
     /**
      * The data used to update Links.
-     * 
-    **/
-    data: XOR<LinkUpdateManyMutationInput, LinkUncheckedUpdateManyInput>
+     */
+    data: XOR<LinkUpdateManyMutationInput, LinkUncheckedUpdateManyInput>;
     /**
      * Filter which Links to update
-     * 
-    **/
-    where?: LinkWhereInput
-  }
-
+     */
+    where?: LinkWhereInput;
+  };
 
   /**
    * Link upsert
@@ -1619,31 +1713,25 @@ export namespace Prisma {
   export type LinkUpsertArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
+     */
+    include?: LinkInclude | null;
     /**
      * The filter to search for the Link to update in case it exists.
-     * 
-    **/
-    where: LinkWhereUniqueInput
+     */
+    where: LinkWhereUniqueInput;
     /**
      * In case the Link found by the `where` argument doesn't exist, create a new Link with this data.
-     * 
-    **/
-    create: XOR<LinkCreateInput, LinkUncheckedCreateInput>
+     */
+    create: XOR<LinkCreateInput, LinkUncheckedCreateInput>;
     /**
      * In case the Link was found with the provided `where` argument, update it with this data.
-     * 
-    **/
-    update: XOR<LinkUpdateInput, LinkUncheckedUpdateInput>
-  }
-
+     */
+    update: XOR<LinkUpdateInput, LinkUncheckedUpdateInput>;
+  };
 
   /**
    * Link delete
@@ -1651,21 +1739,17 @@ export namespace Prisma {
   export type LinkDeleteArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
+     */
+    include?: LinkInclude | null;
     /**
      * Filter which Link to delete.
-     * 
-    **/
-    where: LinkWhereUniqueInput
-  }
-
+     */
+    where: LinkWhereUniqueInput;
+  };
 
   /**
    * Link deleteMany
@@ -1673,11 +1757,9 @@ export namespace Prisma {
   export type LinkDeleteManyArgs = {
     /**
      * Filter which Links to delete
-     * 
-    **/
-    where?: LinkWhereInput
-  }
-
+     */
+    where?: LinkWhereInput;
+  };
 
   /**
    * Link without action
@@ -1685,227 +1767,208 @@ export namespace Prisma {
   export type LinkArgs = {
     /**
      * Select specific fields to fetch from the Link
-     * 
-    **/
-    select?: LinkSelect | null
+     */
+    select?: LinkSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: LinkInclude | null
-  }
-
-
+     */
+    include?: LinkInclude | null;
+  };
 
   /**
    * Model User
    */
 
-
   export type AggregateUser = {
-    _count: UserCountAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
+    _count: UserCountAggregateOutputType | null;
+    _min: UserMinAggregateOutputType | null;
+    _max: UserMaxAggregateOutputType | null;
+  };
 
   export type UserMinAggregateOutputType = {
-    id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    name: string | null
-    email: string | null
-  }
+    id: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    name: string | null;
+    email: string | null;
+  };
 
   export type UserMaxAggregateOutputType = {
-    id: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    name: string | null
-    email: string | null
-  }
+    id: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    name: string | null;
+    email: string | null;
+  };
 
   export type UserCountAggregateOutputType = {
-    id: number
-    createdAt: number
-    updatedAt: number
-    name: number
-    email: number
-    _all: number
-  }
-
+    id: number;
+    createdAt: number;
+    updatedAt: number;
+    name: number;
+    email: number;
+    _all: number;
+  };
 
   export type UserMinAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    name?: true
-    email?: true
-  }
+    id?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    name?: true;
+    email?: true;
+  };
 
   export type UserMaxAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    name?: true
-    email?: true
-  }
+    id?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    name?: true;
+    email?: true;
+  };
 
   export type UserCountAggregateInputType = {
-    id?: true
-    createdAt?: true
-    updatedAt?: true
-    name?: true
-    email?: true
-    _all?: true
-  }
+    id?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    name?: true;
+    email?: true;
+    _all?: true;
+  };
 
   export type UserAggregateArgs = {
     /**
      * Filter which User to aggregate.
-     * 
-    **/
-    where?: UserWhereInput
+     */
+    where?: UserWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Users to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<UserOrderByWithRelationInput>
+     */
+    orderBy?: Enumerable<UserOrderByWithRelationInput>;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
-     * 
-    **/
-    cursor?: UserWhereUniqueInput
+     */
+    cursor?: UserWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Users from the position of the cursor.
-     * 
-    **/
-    take?: number
+     */
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Users.
-     * 
-    **/
-    skip?: number
+     */
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Users
-    **/
-    _count?: true | UserCountAggregateInputType
+     */
+    _count?: true | UserCountAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
-    **/
-    _min?: UserMinAggregateInputType
+     */
+    _min?: UserMinAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
-    **/
-    _max?: UserMaxAggregateInputType
-  }
+     */
+    _max?: UserMaxAggregateInputType;
+  };
 
   export type GetUserAggregateType<T extends UserAggregateArgs> = {
-        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUser[P]>
+    [P in keyof T & keyof AggregateUser]: P extends "_count" | "count"
+      ? T[P] extends true ? number
       : GetScalarType<T[P], AggregateUser[P]>
-  }
-
-
-
+      : GetScalarType<T[P], AggregateUser[P]>;
+  };
 
   export type UserGroupByArgs = {
-    where?: UserWhereInput
-    orderBy?: Enumerable<UserOrderByWithAggregationInput>
-    by: Array<UserScalarFieldEnum>
-    having?: UserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UserCountAggregateInputType | true
-    _min?: UserMinAggregateInputType
-    _max?: UserMaxAggregateInputType
-  }
-
+    where?: UserWhereInput;
+    orderBy?: Enumerable<UserOrderByWithAggregationInput>;
+    by: Array<UserScalarFieldEnum>;
+    having?: UserScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: UserCountAggregateInputType | true;
+    _min?: UserMinAggregateInputType;
+    _max?: UserMaxAggregateInputType;
+  };
 
   export type UserGroupByOutputType = {
-    id: string
-    createdAt: Date
-    updatedAt: Date
-    name: string | null
-    email: string
-    _count: UserCountAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    name: string | null;
+    email: string;
+    _count: UserCountAggregateOutputType | null;
+    _min: UserMinAggregateOutputType | null;
+    _max: UserMaxAggregateOutputType | null;
+  };
 
   type GetUserGroupByPayload<T extends UserGroupByArgs> = PrismaPromise<
     Array<
-      PickArray<UserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UserGroupByOutputType[P]>
-            : GetScalarType<T[P], UserGroupByOutputType[P]>
-        }
-      >
+      & PickArray<UserGroupByOutputType, T["by"]>
+      & {
+        [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends "_count"
+          ? T[P] extends boolean ? number
+          : GetScalarType<T[P], UserGroupByOutputType[P]>
+          : GetScalarType<T[P], UserGroupByOutputType[P]>;
+      }
     >
-
+  >;
 
   export type UserSelect = {
-    id?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    name?: boolean
-    email?: boolean
-    links?: boolean | LinkFindManyArgs
-    _count?: boolean | UserCountOutputTypeArgs
-  }
+    id?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    name?: boolean;
+    email?: boolean;
+    links?: boolean | LinkFindManyArgs;
+    _count?: boolean | UserCountOutputTypeArgs;
+  };
 
   export type UserInclude = {
-    links?: boolean | LinkFindManyArgs
-    _count?: boolean | UserCountOutputTypeArgs
-  }
+    links?: boolean | LinkFindManyArgs;
+    _count?: boolean | UserCountOutputTypeArgs;
+  };
 
   export type UserGetPayload<
     S extends boolean | null | undefined | UserArgs,
-    U = keyof S
-      > = S extends true
-        ? User
-    : S extends undefined
-    ? never
-    : S extends UserArgs | UserFindManyArgs
-    ?'include' extends U
-    ? User  & {
-    [P in TrueKeys<S['include']>]:
-        P extends 'links' ? Array < LinkGetPayload<S['include'][P]>>  :
-        P extends '_count' ? UserCountOutputTypeGetPayload<S['include'][P]> :  never
-  } 
-    : 'select' extends U
-    ? {
-    [P in TrueKeys<S['select']>]:
-        P extends 'links' ? Array < LinkGetPayload<S['select'][P]>>  :
-        P extends '_count' ? UserCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof User ? User[P] : never
-  } 
+    U = keyof S,
+  > = S extends true ? User
+    : S extends undefined ? never
+    : S extends UserArgs | UserFindManyArgs ? "include" extends U ? 
+      & User
+      & {
+        [P in TrueKeys<S["include"]>]: P extends "links"
+          ? Array<LinkGetPayload<S["include"][P]>>
+          : P extends "_count" ? UserCountOutputTypeGetPayload<S["include"][P]>
+          : never;
+      }
+    : "select" extends U ? {
+      [P in TrueKeys<S["select"]>]: P extends "links"
+        ? Array<LinkGetPayload<S["select"][P]>>
+        : P extends "_count" ? UserCountOutputTypeGetPayload<S["select"][P]>
+        : P extends keyof User ? User[P]
+        : never;
+    }
     : User
-  : User
-
+    : User;
 
   type UserCountArgs = Merge<
-    Omit<UserFindManyArgs, 'select' | 'include'> & {
-      select?: UserCountAggregateInputType | true
+    Omit<UserFindManyArgs, "select" | "include"> & {
+      select?: UserCountAggregateInputType | true;
     }
-  >
+  >;
 
   export interface UserDelegate<GlobalRejectSettings> {
     /**
@@ -1918,10 +1981,29 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findUnique<T extends UserFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, UserFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'User'> extends True ? CheckSelect<T, Prisma__UserClient<User>, Prisma__UserClient<UserGetPayload<T>>> : CheckSelect<T, Prisma__UserClient<User | null >, Prisma__UserClient<UserGetPayload<T> | null >>
+     */
+    findUnique<
+      T extends UserFindUniqueArgs,
+      LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound
+        ? T["rejectOnNotFound"]
+        : undefined,
+    >(
+      args: SelectSubset<T, UserFindUniqueArgs>,
+    ): HasReject<
+      GlobalRejectSettings,
+      LocalRejectSettings,
+      "findUnique",
+      "User"
+    > extends True ? CheckSelect<
+      T,
+      Prisma__UserClient<User>,
+      Prisma__UserClient<UserGetPayload<T>>
+    >
+      : CheckSelect<
+        T,
+        Prisma__UserClient<User | null>,
+        Prisma__UserClient<UserGetPayload<T> | null>
+      >;
 
     /**
      * Find the first User that matches the filter.
@@ -1935,10 +2017,29 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-    **/
-    findFirst<T extends UserFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, UserFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'User'> extends True ? CheckSelect<T, Prisma__UserClient<User>, Prisma__UserClient<UserGetPayload<T>>> : CheckSelect<T, Prisma__UserClient<User | null >, Prisma__UserClient<UserGetPayload<T> | null >>
+     */
+    findFirst<
+      T extends UserFindFirstArgs,
+      LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound
+        ? T["rejectOnNotFound"]
+        : undefined,
+    >(
+      args?: SelectSubset<T, UserFindFirstArgs>,
+    ): HasReject<
+      GlobalRejectSettings,
+      LocalRejectSettings,
+      "findFirst",
+      "User"
+    > extends True ? CheckSelect<
+      T,
+      Prisma__UserClient<User>,
+      Prisma__UserClient<UserGetPayload<T>>
+    >
+      : CheckSelect<
+        T,
+        Prisma__UserClient<User | null>,
+        Prisma__UserClient<UserGetPayload<T> | null>
+      >;
 
     /**
      * Find zero or more Users that matches the filter.
@@ -1948,17 +2049,20 @@ export namespace Prisma {
      * @example
      * // Get all Users
      * const users = await prisma.user.findMany()
-     * 
+     *
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     * 
-    **/
+     */
     findMany<T extends UserFindManyArgs>(
-      args?: SelectSubset<T, UserFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<User>>, PrismaPromise<Array<UserGetPayload<T>>>>
+      args?: SelectSubset<T, UserFindManyArgs>,
+    ): CheckSelect<
+      T,
+      PrismaPromise<Array<User>>,
+      PrismaPromise<Array<UserGetPayload<T>>>
+    >;
 
     /**
      * Create a User.
@@ -1970,11 +2074,14 @@ export namespace Prisma {
      *     // ... data to create a User
      *   }
      * })
-     * 
-    **/
+     */
     create<T extends UserCreateArgs>(
-      args: SelectSubset<T, UserCreateArgs>
-    ): CheckSelect<T, Prisma__UserClient<User>, Prisma__UserClient<UserGetPayload<T>>>
+      args: SelectSubset<T, UserCreateArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__UserClient<User>,
+      Prisma__UserClient<UserGetPayload<T>>
+    >;
 
     /**
      * Create many Users.
@@ -1986,11 +2093,10 @@ export namespace Prisma {
      *         // ... provide data here
      *       }
      *     })
-     *     
-    **/
+     */
     createMany<T extends UserCreateManyArgs>(
-      args?: SelectSubset<T, UserCreateManyArgs>
-    ): PrismaPromise<BatchPayload>
+      args?: SelectSubset<T, UserCreateManyArgs>,
+    ): PrismaPromise<BatchPayload>;
 
     /**
      * Delete a User.
@@ -2002,11 +2108,14 @@ export namespace Prisma {
      *     // ... filter to delete one User
      *   }
      * })
-     * 
-    **/
+     */
     delete<T extends UserDeleteArgs>(
-      args: SelectSubset<T, UserDeleteArgs>
-    ): CheckSelect<T, Prisma__UserClient<User>, Prisma__UserClient<UserGetPayload<T>>>
+      args: SelectSubset<T, UserDeleteArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__UserClient<User>,
+      Prisma__UserClient<UserGetPayload<T>>
+    >;
 
     /**
      * Update one User.
@@ -2021,11 +2130,14 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
-    **/
+     */
     update<T extends UserUpdateArgs>(
-      args: SelectSubset<T, UserUpdateArgs>
-    ): CheckSelect<T, Prisma__UserClient<User>, Prisma__UserClient<UserGetPayload<T>>>
+      args: SelectSubset<T, UserUpdateArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__UserClient<User>,
+      Prisma__UserClient<UserGetPayload<T>>
+    >;
 
     /**
      * Delete zero or more Users.
@@ -2037,11 +2149,10 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
-    **/
+     */
     deleteMany<T extends UserDeleteManyArgs>(
-      args?: SelectSubset<T, UserDeleteManyArgs>
-    ): PrismaPromise<BatchPayload>
+      args?: SelectSubset<T, UserDeleteManyArgs>,
+    ): PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Users.
@@ -2058,11 +2169,10 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
-    **/
+     */
     updateMany<T extends UserUpdateManyArgs>(
-      args: SelectSubset<T, UserUpdateManyArgs>
-    ): PrismaPromise<BatchPayload>
+      args: SelectSubset<T, UserUpdateManyArgs>,
+    ): PrismaPromise<BatchPayload>;
 
     /**
      * Create or update one User.
@@ -2080,10 +2190,14 @@ export namespace Prisma {
      *     // ... the filter for the User we want to update
      *   }
      * })
-    **/
+     */
     upsert<T extends UserUpsertArgs>(
-      args: SelectSubset<T, UserUpsertArgs>
-    ): CheckSelect<T, Prisma__UserClient<User>, Prisma__UserClient<UserGetPayload<T>>>
+      args: SelectSubset<T, UserUpsertArgs>,
+    ): CheckSelect<
+      T,
+      Prisma__UserClient<User>,
+      Prisma__UserClient<UserGetPayload<T>>
+    >;
 
     /**
      * Count the number of Users.
@@ -2097,16 +2211,14 @@ export namespace Prisma {
      *     // ... the filter for the Users we want to count
      *   }
      * })
-    **/
+     */
     count<T extends UserCountArgs>(
       args?: Subset<T, UserCountArgs>,
     ): PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UserCountAggregateOutputType>
+      T extends _Record<"select", any> ? T["select"] extends true ? number
+      : GetScalarType<T["select"], UserCountAggregateOutputType>
         : number
-    >
+    >;
 
     /**
      * Allows you to perform aggregations operations on a User.
@@ -2131,8 +2243,10 @@ export namespace Prisma {
      *   },
      *   take: 10,
      * })
-    **/
-    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): PrismaPromise<GetUserAggregateType<T>>
+     */
+    aggregate<T extends UserAggregateArgs>(
+      args: Subset<T, UserAggregateArgs>,
+    ): PrismaPromise<GetUserAggregateType<T>>;
 
     /**
      * Group by User.
@@ -2150,66 +2264,60 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
-    **/
+     */
     groupBy<
       T extends UserGroupByArgs,
       HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserGroupByArgs['orderBy'] }
-        : { orderBy?: UserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
+        ? { orderBy: UserGroupByArgs["orderBy"] }
+        : { orderBy?: UserGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends TupleToUnion<T["by"]>,
       ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
+      HavingFields extends GetHavingFields<T["having"]>,
       HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
+      ByEmpty extends T["by"] extends never[] ? True : False,
       InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False ? {
+          [P in HavingFields]: P extends ByFields ? never
             : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+              ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
             : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
+              Error,
+              "Field ",
+              P,
+              ` in "having" needs to be provided in "by"`,
+            ];
         }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
+        : "take" extends Keys<T>
+          ? "orderBy" extends Keys<T> ? ByValid extends True ? {}
           : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
+            [P in OrderFields]: P extends ByFields ? never
+              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+          }[OrderFields]
+          : 'Error: If you provide "take", you also need to provide "orderBy"'
+        : "skip" extends Keys<T>
+          ? "orderBy" extends Keys<T> ? ByValid extends True ? {}
           : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : PrismaPromise<InputErrors>
+            [P in OrderFields]: P extends ByFields ? never
+              : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+          }[OrderFields]
+          : 'Error: If you provide "skip", you also need to provide "orderBy"'
+        : ByValid extends True ? {}
+        : {
+          [P in OrderFields]: P extends ByFields ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+        }[OrderFields],
+    >(
+      args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors ? GetUserGroupByPayload<T>
+      : PrismaPromise<InputErrors>;
   }
 
   /**
@@ -2232,10 +2340,27 @@ export namespace Prisma {
     private _isList;
     private _callsite;
     private _requestPromise?;
-    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+    constructor(
+      _dmmf: runtime.DMMFClass,
+      _fetcher: PrismaClientFetcher,
+      _queryType: "query" | "mutation",
+      _rootField: string,
+      _clientMethod: string,
+      _args: any,
+      _dataPath: string[],
+      _errorFormat: ErrorFormat,
+      _measurePerformance?: boolean | undefined,
+      _isList?: boolean,
+    );
+    readonly [Symbol.toStringTag]: "PrismaClientPromise";
 
-    links<T extends LinkFindManyArgs = {}>(args?: Subset<T, LinkFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Link>>, PrismaPromise<Array<LinkGetPayload<T>>>>;
+    links<T extends LinkFindManyArgs = {}>(
+      args?: Subset<T, LinkFindManyArgs>,
+    ): CheckSelect<
+      T,
+      PrismaPromise<Array<Link>>,
+      PrismaPromise<Array<LinkGetPayload<T>>>
+    >;
 
     private get _document();
     /**
@@ -2244,13 +2369,27 @@ export namespace Prisma {
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): Promise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): Promise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
@@ -2268,26 +2407,21 @@ export namespace Prisma {
   export type UserFindUniqueArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
+     */
+    include?: UserInclude | null;
     /**
      * Throw an Error if a User can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
+     */
+    rejectOnNotFound?: RejectOnNotFound;
     /**
      * Filter, which User to fetch.
-     * 
-    **/
-    where: UserWhereUniqueInput
-  }
-
+     */
+    where: UserWhereUniqueInput;
+  };
 
   /**
    * User findFirst
@@ -2295,61 +2429,51 @@ export namespace Prisma {
   export type UserFindFirstArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
+     */
+    include?: UserInclude | null;
     /**
      * Throw an Error if a User can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
+     */
+    rejectOnNotFound?: RejectOnNotFound;
     /**
      * Filter, which User to fetch.
-     * 
-    **/
-    where?: UserWhereInput
+     */
+    where?: UserWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Users to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<UserOrderByWithRelationInput>
+     */
+    orderBy?: Enumerable<UserOrderByWithRelationInput>;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Users.
-     * 
-    **/
-    cursor?: UserWhereUniqueInput
+     */
+    cursor?: UserWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Users from the position of the cursor.
-     * 
-    **/
-    take?: number
+     */
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Users.
-     * 
-    **/
-    skip?: number
+     */
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Users.
-     * 
-    **/
-    distinct?: Enumerable<UserScalarFieldEnum>
-  }
-
+     */
+    distinct?: Enumerable<UserScalarFieldEnum>;
+  };
 
   /**
    * User findMany
@@ -2357,50 +2481,42 @@ export namespace Prisma {
   export type UserFindManyArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
+     */
+    include?: UserInclude | null;
     /**
      * Filter, which Users to fetch.
-     * 
-    **/
-    where?: UserWhereInput
+     */
+    where?: UserWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Users to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<UserOrderByWithRelationInput>
+     */
+    orderBy?: Enumerable<UserOrderByWithRelationInput>;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Users.
-     * 
-    **/
-    cursor?: UserWhereUniqueInput
+     */
+    cursor?: UserWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Users from the position of the cursor.
-     * 
-    **/
-    take?: number
+     */
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Users.
-     * 
-    **/
-    skip?: number
-    distinct?: Enumerable<UserScalarFieldEnum>
-  }
-
+     */
+    skip?: number;
+    distinct?: Enumerable<UserScalarFieldEnum>;
+  };
 
   /**
    * User create
@@ -2408,21 +2524,17 @@ export namespace Prisma {
   export type UserCreateArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
+     */
+    include?: UserInclude | null;
     /**
      * The data needed to create a User.
-     * 
-    **/
-    data: XOR<UserCreateInput, UserUncheckedCreateInput>
-  }
-
+     */
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>;
+  };
 
   /**
    * User createMany
@@ -2430,12 +2542,10 @@ export namespace Prisma {
   export type UserCreateManyArgs = {
     /**
      * The data used to create many Users.
-     * 
-    **/
-    data: Enumerable<UserCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
+     */
+    data: Enumerable<UserCreateManyInput>;
+    skipDuplicates?: boolean;
+  };
 
   /**
    * User update
@@ -2443,26 +2553,21 @@ export namespace Prisma {
   export type UserUpdateArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
+     */
+    include?: UserInclude | null;
     /**
      * The data needed to update a User.
-     * 
-    **/
-    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+     */
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>;
     /**
      * Choose, which User to update.
-     * 
-    **/
-    where: UserWhereUniqueInput
-  }
-
+     */
+    where: UserWhereUniqueInput;
+  };
 
   /**
    * User updateMany
@@ -2470,16 +2575,13 @@ export namespace Prisma {
   export type UserUpdateManyArgs = {
     /**
      * The data used to update Users.
-     * 
-    **/
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>;
     /**
      * Filter which Users to update
-     * 
-    **/
-    where?: UserWhereInput
-  }
-
+     */
+    where?: UserWhereInput;
+  };
 
   /**
    * User upsert
@@ -2487,31 +2589,25 @@ export namespace Prisma {
   export type UserUpsertArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
+     */
+    include?: UserInclude | null;
     /**
      * The filter to search for the User to update in case it exists.
-     * 
-    **/
-    where: UserWhereUniqueInput
+     */
+    where: UserWhereUniqueInput;
     /**
      * In case the User found by the `where` argument doesn't exist, create a new User with this data.
-     * 
-    **/
-    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+     */
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>;
     /**
      * In case the User was found with the provided `where` argument, update it with this data.
-     * 
-    **/
-    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-  }
-
+     */
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>;
+  };
 
   /**
    * User delete
@@ -2519,21 +2615,17 @@ export namespace Prisma {
   export type UserDeleteArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
+     */
+    include?: UserInclude | null;
     /**
      * Filter which User to delete.
-     * 
-    **/
-    where: UserWhereUniqueInput
-  }
-
+     */
+    where: UserWhereUniqueInput;
+  };
 
   /**
    * User deleteMany
@@ -2541,11 +2633,9 @@ export namespace Prisma {
   export type UserDeleteManyArgs = {
     /**
      * Filter which Users to delete
-     * 
-    **/
-    where?: UserWhereInput
-  }
-
+     */
+    where?: UserWhereInput;
+  };
 
   /**
    * User without action
@@ -2553,17 +2643,13 @@ export namespace Prisma {
   export type UserArgs = {
     /**
      * Select specific fields to fetch from the User
-     * 
-    **/
-    select?: UserSelect | null
+     */
+    select?: UserSelect | null;
     /**
      * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: UserInclude | null
-  }
-
-
+     */
+    include?: UserInclude | null;
+  };
 
   /**
    * Enums
@@ -2573,742 +2659,779 @@ export namespace Prisma {
   // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
 
   export const LinkScalarFieldEnum: {
-    id: 'id',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    url: 'url',
-    shortUrl: 'shortUrl',
-    userId: 'userId'
+    id: "id";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+    url: "url";
+    shortUrl: "shortUrl";
+    userId: "userId";
   };
 
-  export type LinkScalarFieldEnum = (typeof LinkScalarFieldEnum)[keyof typeof LinkScalarFieldEnum]
-
+  export type LinkScalarFieldEnum =
+    (typeof LinkScalarFieldEnum)[keyof typeof LinkScalarFieldEnum];
 
   export const UserScalarFieldEnum: {
-    id: 'id',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    name: 'name',
-    email: 'email'
+    id: "id";
+    createdAt: "createdAt";
+    updatedAt: "updatedAt";
+    name: "name";
+    email: "email";
   };
 
-  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
+  export type UserScalarFieldEnum =
+    (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 
   export const SortOrder: {
-    asc: 'asc',
-    desc: 'desc'
+    asc: "asc";
+    desc: "desc";
   };
 
-  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
 
   export const QueryMode: {
-    default: 'default',
-    insensitive: 'insensitive'
+    default: "default";
+    insensitive: "insensitive";
   };
 
-  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode];
 
   /**
    * Deep Input Types
    */
 
-
   export type LinkWhereInput = {
-    AND?: Enumerable<LinkWhereInput>
-    OR?: Enumerable<LinkWhereInput>
-    NOT?: Enumerable<LinkWhereInput>
-    id?: StringFilter | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    url?: StringFilter | string
-    shortUrl?: StringFilter | string
-    userId?: StringNullableFilter | string | null
-    User?: XOR<UserRelationFilter, UserWhereInput> | null
-  }
+    AND?: Enumerable<LinkWhereInput>;
+    OR?: Enumerable<LinkWhereInput>;
+    NOT?: Enumerable<LinkWhereInput>;
+    id?: StringFilter | string;
+    createdAt?: DateTimeFilter | Date | string;
+    updatedAt?: DateTimeFilter | Date | string;
+    url?: StringFilter | string;
+    shortUrl?: StringFilter | string;
+    userId?: StringNullableFilter | string | null;
+    User?: XOR<UserRelationFilter, UserWhereInput> | null;
+  };
 
   export type LinkOrderByWithRelationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    url?: SortOrder
-    shortUrl?: SortOrder
-    userId?: SortOrder
-    User?: UserOrderByWithRelationInput
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    url?: SortOrder;
+    shortUrl?: SortOrder;
+    userId?: SortOrder;
+    User?: UserOrderByWithRelationInput;
+  };
 
   export type LinkWhereUniqueInput = {
-    id?: string
-  }
+    id?: string;
+  };
 
   export type LinkOrderByWithAggregationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    url?: SortOrder
-    shortUrl?: SortOrder
-    userId?: SortOrder
-    _count?: LinkCountOrderByAggregateInput
-    _max?: LinkMaxOrderByAggregateInput
-    _min?: LinkMinOrderByAggregateInput
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    url?: SortOrder;
+    shortUrl?: SortOrder;
+    userId?: SortOrder;
+    _count?: LinkCountOrderByAggregateInput;
+    _max?: LinkMaxOrderByAggregateInput;
+    _min?: LinkMinOrderByAggregateInput;
+  };
 
   export type LinkScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<LinkScalarWhereWithAggregatesInput>
-    OR?: Enumerable<LinkScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<LinkScalarWhereWithAggregatesInput>
-    id?: StringWithAggregatesFilter | string
-    createdAt?: DateTimeWithAggregatesFilter | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter | Date | string
-    url?: StringWithAggregatesFilter | string
-    shortUrl?: StringWithAggregatesFilter | string
-    userId?: StringNullableWithAggregatesFilter | string | null
-  }
+    AND?: Enumerable<LinkScalarWhereWithAggregatesInput>;
+    OR?: Enumerable<LinkScalarWhereWithAggregatesInput>;
+    NOT?: Enumerable<LinkScalarWhereWithAggregatesInput>;
+    id?: StringWithAggregatesFilter | string;
+    createdAt?: DateTimeWithAggregatesFilter | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string;
+    url?: StringWithAggregatesFilter | string;
+    shortUrl?: StringWithAggregatesFilter | string;
+    userId?: StringNullableWithAggregatesFilter | string | null;
+  };
 
   export type UserWhereInput = {
-    AND?: Enumerable<UserWhereInput>
-    OR?: Enumerable<UserWhereInput>
-    NOT?: Enumerable<UserWhereInput>
-    id?: StringFilter | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    name?: StringNullableFilter | string | null
-    email?: StringFilter | string
-    links?: LinkListRelationFilter
-  }
+    AND?: Enumerable<UserWhereInput>;
+    OR?: Enumerable<UserWhereInput>;
+    NOT?: Enumerable<UserWhereInput>;
+    id?: StringFilter | string;
+    createdAt?: DateTimeFilter | Date | string;
+    updatedAt?: DateTimeFilter | Date | string;
+    name?: StringNullableFilter | string | null;
+    email?: StringFilter | string;
+    links?: LinkListRelationFilter;
+  };
 
   export type UserOrderByWithRelationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    links?: LinkOrderByRelationAggregateInput
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    name?: SortOrder;
+    email?: SortOrder;
+    links?: LinkOrderByRelationAggregateInput;
+  };
 
   export type UserWhereUniqueInput = {
-    id?: string
-  }
+    id?: string;
+  };
 
   export type UserOrderByWithAggregationInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-    _count?: UserCountOrderByAggregateInput
-    _max?: UserMaxOrderByAggregateInput
-    _min?: UserMinOrderByAggregateInput
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    name?: SortOrder;
+    email?: SortOrder;
+    _count?: UserCountOrderByAggregateInput;
+    _max?: UserMaxOrderByAggregateInput;
+    _min?: UserMinOrderByAggregateInput;
+  };
 
   export type UserScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<UserScalarWhereWithAggregatesInput>
-    OR?: Enumerable<UserScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<UserScalarWhereWithAggregatesInput>
-    id?: StringWithAggregatesFilter | string
-    createdAt?: DateTimeWithAggregatesFilter | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter | Date | string
-    name?: StringNullableWithAggregatesFilter | string | null
-    email?: StringWithAggregatesFilter | string
-  }
+    AND?: Enumerable<UserScalarWhereWithAggregatesInput>;
+    OR?: Enumerable<UserScalarWhereWithAggregatesInput>;
+    NOT?: Enumerable<UserScalarWhereWithAggregatesInput>;
+    id?: StringWithAggregatesFilter | string;
+    createdAt?: DateTimeWithAggregatesFilter | Date | string;
+    updatedAt?: DateTimeWithAggregatesFilter | Date | string;
+    name?: StringNullableWithAggregatesFilter | string | null;
+    email?: StringWithAggregatesFilter | string;
+  };
 
   export type LinkCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    url: string
-    shortUrl: string
-    User?: UserCreateNestedOneWithoutLinksInput
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    url: string;
+    shortUrl: string;
+    User?: UserCreateNestedOneWithoutLinksInput;
+  };
 
   export type LinkUncheckedCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    url: string
-    shortUrl: string
-    userId?: string | null
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    url: string;
+    shortUrl: string;
+    userId?: string | null;
+  };
 
   export type LinkUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    url?: StringFieldUpdateOperationsInput | string
-    shortUrl?: StringFieldUpdateOperationsInput | string
-    User?: UserUpdateOneWithoutLinksInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    url?: StringFieldUpdateOperationsInput | string;
+    shortUrl?: StringFieldUpdateOperationsInput | string;
+    User?: UserUpdateOneWithoutLinksInput;
+  };
 
   export type LinkUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    url?: StringFieldUpdateOperationsInput | string
-    shortUrl?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    url?: StringFieldUpdateOperationsInput | string;
+    shortUrl?: StringFieldUpdateOperationsInput | string;
+    userId?: NullableStringFieldUpdateOperationsInput | string | null;
+  };
 
   export type LinkCreateManyInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    url: string
-    shortUrl: string
-    userId?: string | null
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    url: string;
+    shortUrl: string;
+    userId?: string | null;
+  };
 
   export type LinkUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    url?: StringFieldUpdateOperationsInput | string
-    shortUrl?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    url?: StringFieldUpdateOperationsInput | string;
+    shortUrl?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type LinkUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    url?: StringFieldUpdateOperationsInput | string
-    shortUrl?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    url?: StringFieldUpdateOperationsInput | string;
+    shortUrl?: StringFieldUpdateOperationsInput | string;
+    userId?: NullableStringFieldUpdateOperationsInput | string | null;
+  };
 
   export type UserCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name?: string | null
-    email: string
-    links?: LinkCreateNestedManyWithoutUserInput
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    name?: string | null;
+    email: string;
+    links?: LinkCreateNestedManyWithoutUserInput;
+  };
 
   export type UserUncheckedCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name?: string | null
-    email: string
-    links?: LinkUncheckedCreateNestedManyWithoutUserInput
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    name?: string | null;
+    email: string;
+    links?: LinkUncheckedCreateNestedManyWithoutUserInput;
+  };
 
   export type UserUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    links?: LinkUpdateManyWithoutUserInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    links?: LinkUpdateManyWithoutUserInput;
+  };
 
   export type UserUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    links?: LinkUncheckedUpdateManyWithoutUserInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+    links?: LinkUncheckedUpdateManyWithoutUserInput;
+  };
 
   export type UserCreateManyInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name?: string | null
-    email: string
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    name?: string | null;
+    email: string;
+  };
 
   export type UserUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type UserUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type StringFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    mode?: QueryMode
-    not?: NestedStringFilter | string
-  }
+    equals?: string;
+    in?: Enumerable<string>;
+    notIn?: Enumerable<string>;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    mode?: QueryMode;
+    not?: NestedStringFilter | string;
+  };
 
   export type DateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
-  }
+    equals?: Date | string;
+    in?: Enumerable<Date> | Enumerable<string>;
+    notIn?: Enumerable<Date> | Enumerable<string>;
+    lt?: Date | string;
+    lte?: Date | string;
+    gt?: Date | string;
+    gte?: Date | string;
+    not?: NestedDateTimeFilter | Date | string;
+  };
 
   export type StringNullableFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    mode?: QueryMode
-    not?: NestedStringNullableFilter | string | null
-  }
+    equals?: string | null;
+    in?: Enumerable<string> | null;
+    notIn?: Enumerable<string> | null;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    mode?: QueryMode;
+    not?: NestedStringNullableFilter | string | null;
+  };
 
   export type UserRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
-  }
+    is?: UserWhereInput | null;
+    isNot?: UserWhereInput | null;
+  };
 
   export type LinkCountOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    url?: SortOrder
-    shortUrl?: SortOrder
-    userId?: SortOrder
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    url?: SortOrder;
+    shortUrl?: SortOrder;
+    userId?: SortOrder;
+  };
 
   export type LinkMaxOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    url?: SortOrder
-    shortUrl?: SortOrder
-    userId?: SortOrder
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    url?: SortOrder;
+    shortUrl?: SortOrder;
+    userId?: SortOrder;
+  };
 
   export type LinkMinOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    url?: SortOrder
-    shortUrl?: SortOrder
-    userId?: SortOrder
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    url?: SortOrder;
+    shortUrl?: SortOrder;
+    userId?: SortOrder;
+  };
 
   export type StringWithAggregatesFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter | string
-    _count?: NestedIntFilter
-    _min?: NestedStringFilter
-    _max?: NestedStringFilter
-  }
+    equals?: string;
+    in?: Enumerable<string>;
+    notIn?: Enumerable<string>;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    mode?: QueryMode;
+    not?: NestedStringWithAggregatesFilter | string;
+    _count?: NestedIntFilter;
+    _min?: NestedStringFilter;
+    _max?: NestedStringFilter;
+  };
 
   export type DateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
-  }
+    equals?: Date | string;
+    in?: Enumerable<Date> | Enumerable<string>;
+    notIn?: Enumerable<Date> | Enumerable<string>;
+    lt?: Date | string;
+    lte?: Date | string;
+    gt?: Date | string;
+    gte?: Date | string;
+    not?: NestedDateTimeWithAggregatesFilter | Date | string;
+    _count?: NestedIntFilter;
+    _min?: NestedDateTimeFilter;
+    _max?: NestedDateTimeFilter;
+  };
 
   export type StringNullableWithAggregatesFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedStringNullableFilter
-    _max?: NestedStringNullableFilter
-  }
+    equals?: string | null;
+    in?: Enumerable<string> | null;
+    notIn?: Enumerable<string> | null;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    mode?: QueryMode;
+    not?: NestedStringNullableWithAggregatesFilter | string | null;
+    _count?: NestedIntNullableFilter;
+    _min?: NestedStringNullableFilter;
+    _max?: NestedStringNullableFilter;
+  };
 
   export type LinkListRelationFilter = {
-    every?: LinkWhereInput
-    some?: LinkWhereInput
-    none?: LinkWhereInput
-  }
+    every?: LinkWhereInput;
+    some?: LinkWhereInput;
+    none?: LinkWhereInput;
+  };
 
   export type LinkOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
+    _count?: SortOrder;
+  };
 
   export type UserCountOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    name?: SortOrder;
+    email?: SortOrder;
+  };
 
   export type UserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    name?: SortOrder;
+    email?: SortOrder;
+  };
 
   export type UserMinOrderByAggregateInput = {
-    id?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    name?: SortOrder
-    email?: SortOrder
-  }
+    id?: SortOrder;
+    createdAt?: SortOrder;
+    updatedAt?: SortOrder;
+    name?: SortOrder;
+    email?: SortOrder;
+  };
 
   export type UserCreateNestedOneWithoutLinksInput = {
-    create?: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
-    connectOrCreate?: UserCreateOrConnectWithoutLinksInput
-    connect?: UserWhereUniqueInput
-  }
+    create?: XOR<
+      UserCreateWithoutLinksInput,
+      UserUncheckedCreateWithoutLinksInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutLinksInput;
+    connect?: UserWhereUniqueInput;
+  };
 
   export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
+    set?: string;
+  };
 
   export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
+    set?: Date | string;
+  };
 
   export type UserUpdateOneWithoutLinksInput = {
-    create?: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
-    connectOrCreate?: UserCreateOrConnectWithoutLinksInput
-    upsert?: UserUpsertWithoutLinksInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<UserUpdateWithoutLinksInput, UserUncheckedUpdateWithoutLinksInput>
-  }
+    create?: XOR<
+      UserCreateWithoutLinksInput,
+      UserUncheckedCreateWithoutLinksInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutLinksInput;
+    upsert?: UserUpsertWithoutLinksInput;
+    disconnect?: boolean;
+    delete?: boolean;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      UserUpdateWithoutLinksInput,
+      UserUncheckedUpdateWithoutLinksInput
+    >;
+  };
 
   export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
+    set?: string | null;
+  };
 
   export type LinkCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<LinkCreateWithoutUserInput>, Enumerable<LinkUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>
-    createMany?: LinkCreateManyUserInputEnvelope
-    connect?: Enumerable<LinkWhereUniqueInput>
-  }
+    create?: XOR<
+      Enumerable<LinkCreateWithoutUserInput>,
+      Enumerable<LinkUncheckedCreateWithoutUserInput>
+    >;
+    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>;
+    createMany?: LinkCreateManyUserInputEnvelope;
+    connect?: Enumerable<LinkWhereUniqueInput>;
+  };
 
   export type LinkUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<Enumerable<LinkCreateWithoutUserInput>, Enumerable<LinkUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>
-    createMany?: LinkCreateManyUserInputEnvelope
-    connect?: Enumerable<LinkWhereUniqueInput>
-  }
+    create?: XOR<
+      Enumerable<LinkCreateWithoutUserInput>,
+      Enumerable<LinkUncheckedCreateWithoutUserInput>
+    >;
+    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>;
+    createMany?: LinkCreateManyUserInputEnvelope;
+    connect?: Enumerable<LinkWhereUniqueInput>;
+  };
 
   export type LinkUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<LinkCreateWithoutUserInput>, Enumerable<LinkUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<LinkUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: LinkCreateManyUserInputEnvelope
-    set?: Enumerable<LinkWhereUniqueInput>
-    disconnect?: Enumerable<LinkWhereUniqueInput>
-    delete?: Enumerable<LinkWhereUniqueInput>
-    connect?: Enumerable<LinkWhereUniqueInput>
-    update?: Enumerable<LinkUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<LinkUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<LinkScalarWhereInput>
-  }
+    create?: XOR<
+      Enumerable<LinkCreateWithoutUserInput>,
+      Enumerable<LinkUncheckedCreateWithoutUserInput>
+    >;
+    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>;
+    upsert?: Enumerable<LinkUpsertWithWhereUniqueWithoutUserInput>;
+    createMany?: LinkCreateManyUserInputEnvelope;
+    set?: Enumerable<LinkWhereUniqueInput>;
+    disconnect?: Enumerable<LinkWhereUniqueInput>;
+    delete?: Enumerable<LinkWhereUniqueInput>;
+    connect?: Enumerable<LinkWhereUniqueInput>;
+    update?: Enumerable<LinkUpdateWithWhereUniqueWithoutUserInput>;
+    updateMany?: Enumerable<LinkUpdateManyWithWhereWithoutUserInput>;
+    deleteMany?: Enumerable<LinkScalarWhereInput>;
+  };
 
   export type LinkUncheckedUpdateManyWithoutUserInput = {
-    create?: XOR<Enumerable<LinkCreateWithoutUserInput>, Enumerable<LinkUncheckedCreateWithoutUserInput>>
-    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>
-    upsert?: Enumerable<LinkUpsertWithWhereUniqueWithoutUserInput>
-    createMany?: LinkCreateManyUserInputEnvelope
-    set?: Enumerable<LinkWhereUniqueInput>
-    disconnect?: Enumerable<LinkWhereUniqueInput>
-    delete?: Enumerable<LinkWhereUniqueInput>
-    connect?: Enumerable<LinkWhereUniqueInput>
-    update?: Enumerable<LinkUpdateWithWhereUniqueWithoutUserInput>
-    updateMany?: Enumerable<LinkUpdateManyWithWhereWithoutUserInput>
-    deleteMany?: Enumerable<LinkScalarWhereInput>
-  }
+    create?: XOR<
+      Enumerable<LinkCreateWithoutUserInput>,
+      Enumerable<LinkUncheckedCreateWithoutUserInput>
+    >;
+    connectOrCreate?: Enumerable<LinkCreateOrConnectWithoutUserInput>;
+    upsert?: Enumerable<LinkUpsertWithWhereUniqueWithoutUserInput>;
+    createMany?: LinkCreateManyUserInputEnvelope;
+    set?: Enumerable<LinkWhereUniqueInput>;
+    disconnect?: Enumerable<LinkWhereUniqueInput>;
+    delete?: Enumerable<LinkWhereUniqueInput>;
+    connect?: Enumerable<LinkWhereUniqueInput>;
+    update?: Enumerable<LinkUpdateWithWhereUniqueWithoutUserInput>;
+    updateMany?: Enumerable<LinkUpdateManyWithWhereWithoutUserInput>;
+    deleteMany?: Enumerable<LinkScalarWhereInput>;
+  };
 
   export type NestedStringFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringFilter | string
-  }
+    equals?: string;
+    in?: Enumerable<string>;
+    notIn?: Enumerable<string>;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    not?: NestedStringFilter | string;
+  };
 
   export type NestedDateTimeFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeFilter | Date | string
-  }
+    equals?: Date | string;
+    in?: Enumerable<Date> | Enumerable<string>;
+    notIn?: Enumerable<Date> | Enumerable<string>;
+    lt?: Date | string;
+    lte?: Date | string;
+    gt?: Date | string;
+    gte?: Date | string;
+    not?: NestedDateTimeFilter | Date | string;
+  };
 
   export type NestedStringNullableFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringNullableFilter | string | null
-  }
+    equals?: string | null;
+    in?: Enumerable<string> | null;
+    notIn?: Enumerable<string> | null;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    not?: NestedStringNullableFilter | string | null;
+  };
 
   export type NestedStringWithAggregatesFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringWithAggregatesFilter | string
-    _count?: NestedIntFilter
-    _min?: NestedStringFilter
-    _max?: NestedStringFilter
-  }
+    equals?: string;
+    in?: Enumerable<string>;
+    notIn?: Enumerable<string>;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    not?: NestedStringWithAggregatesFilter | string;
+    _count?: NestedIntFilter;
+    _min?: NestedStringFilter;
+    _max?: NestedStringFilter;
+  };
 
   export type NestedIntFilter = {
-    equals?: number
-    in?: Enumerable<number>
-    notIn?: Enumerable<number>
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntFilter | number
-  }
+    equals?: number;
+    in?: Enumerable<number>;
+    notIn?: Enumerable<number>;
+    lt?: number;
+    lte?: number;
+    gt?: number;
+    gte?: number;
+    not?: NestedIntFilter | number;
+  };
 
   export type NestedDateTimeWithAggregatesFilter = {
-    equals?: Date | string
-    in?: Enumerable<Date> | Enumerable<string>
-    notIn?: Enumerable<Date> | Enumerable<string>
-    lt?: Date | string
-    lte?: Date | string
-    gt?: Date | string
-    gte?: Date | string
-    not?: NestedDateTimeWithAggregatesFilter | Date | string
-    _count?: NestedIntFilter
-    _min?: NestedDateTimeFilter
-    _max?: NestedDateTimeFilter
-  }
+    equals?: Date | string;
+    in?: Enumerable<Date> | Enumerable<string>;
+    notIn?: Enumerable<Date> | Enumerable<string>;
+    lt?: Date | string;
+    lte?: Date | string;
+    gt?: Date | string;
+    gte?: Date | string;
+    not?: NestedDateTimeWithAggregatesFilter | Date | string;
+    _count?: NestedIntFilter;
+    _min?: NestedDateTimeFilter;
+    _max?: NestedDateTimeFilter;
+  };
 
   export type NestedStringNullableWithAggregatesFilter = {
-    equals?: string | null
-    in?: Enumerable<string> | null
-    notIn?: Enumerable<string> | null
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringNullableWithAggregatesFilter | string | null
-    _count?: NestedIntNullableFilter
-    _min?: NestedStringNullableFilter
-    _max?: NestedStringNullableFilter
-  }
+    equals?: string | null;
+    in?: Enumerable<string> | null;
+    notIn?: Enumerable<string> | null;
+    lt?: string;
+    lte?: string;
+    gt?: string;
+    gte?: string;
+    contains?: string;
+    startsWith?: string;
+    endsWith?: string;
+    not?: NestedStringNullableWithAggregatesFilter | string | null;
+    _count?: NestedIntNullableFilter;
+    _min?: NestedStringNullableFilter;
+    _max?: NestedStringNullableFilter;
+  };
 
   export type NestedIntNullableFilter = {
-    equals?: number | null
-    in?: Enumerable<number> | null
-    notIn?: Enumerable<number> | null
-    lt?: number
-    lte?: number
-    gt?: number
-    gte?: number
-    not?: NestedIntNullableFilter | number | null
-  }
+    equals?: number | null;
+    in?: Enumerable<number> | null;
+    notIn?: Enumerable<number> | null;
+    lt?: number;
+    lte?: number;
+    gt?: number;
+    gte?: number;
+    not?: NestedIntNullableFilter | number | null;
+  };
 
   export type UserCreateWithoutLinksInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name?: string | null
-    email: string
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    name?: string | null;
+    email: string;
+  };
 
   export type UserUncheckedCreateWithoutLinksInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    name?: string | null
-    email: string
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    name?: string | null;
+    email: string;
+  };
 
   export type UserCreateOrConnectWithoutLinksInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
-  }
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutLinksInput,
+      UserUncheckedCreateWithoutLinksInput
+    >;
+  };
 
   export type UserUpsertWithoutLinksInput = {
-    update: XOR<UserUpdateWithoutLinksInput, UserUncheckedUpdateWithoutLinksInput>
-    create: XOR<UserCreateWithoutLinksInput, UserUncheckedCreateWithoutLinksInput>
-  }
+    update: XOR<
+      UserUpdateWithoutLinksInput,
+      UserUncheckedUpdateWithoutLinksInput
+    >;
+    create: XOR<
+      UserCreateWithoutLinksInput,
+      UserUncheckedCreateWithoutLinksInput
+    >;
+  };
 
   export type UserUpdateWithoutLinksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type UserUncheckedUpdateWithoutLinksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    name?: NullableStringFieldUpdateOperationsInput | string | null;
+    email?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type LinkCreateWithoutUserInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    url: string
-    shortUrl: string
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    url: string;
+    shortUrl: string;
+  };
 
   export type LinkUncheckedCreateWithoutUserInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    url: string
-    shortUrl: string
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    url: string;
+    shortUrl: string;
+  };
 
   export type LinkCreateOrConnectWithoutUserInput = {
-    where: LinkWhereUniqueInput
-    create: XOR<LinkCreateWithoutUserInput, LinkUncheckedCreateWithoutUserInput>
-  }
+    where: LinkWhereUniqueInput;
+    create: XOR<
+      LinkCreateWithoutUserInput,
+      LinkUncheckedCreateWithoutUserInput
+    >;
+  };
 
   export type LinkCreateManyUserInputEnvelope = {
-    data: Enumerable<LinkCreateManyUserInput>
-    skipDuplicates?: boolean
-  }
+    data: Enumerable<LinkCreateManyUserInput>;
+    skipDuplicates?: boolean;
+  };
 
   export type LinkUpsertWithWhereUniqueWithoutUserInput = {
-    where: LinkWhereUniqueInput
-    update: XOR<LinkUpdateWithoutUserInput, LinkUncheckedUpdateWithoutUserInput>
-    create: XOR<LinkCreateWithoutUserInput, LinkUncheckedCreateWithoutUserInput>
-  }
+    where: LinkWhereUniqueInput;
+    update: XOR<
+      LinkUpdateWithoutUserInput,
+      LinkUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      LinkCreateWithoutUserInput,
+      LinkUncheckedCreateWithoutUserInput
+    >;
+  };
 
   export type LinkUpdateWithWhereUniqueWithoutUserInput = {
-    where: LinkWhereUniqueInput
-    data: XOR<LinkUpdateWithoutUserInput, LinkUncheckedUpdateWithoutUserInput>
-  }
+    where: LinkWhereUniqueInput;
+    data: XOR<LinkUpdateWithoutUserInput, LinkUncheckedUpdateWithoutUserInput>;
+  };
 
   export type LinkUpdateManyWithWhereWithoutUserInput = {
-    where: LinkScalarWhereInput
-    data: XOR<LinkUpdateManyMutationInput, LinkUncheckedUpdateManyWithoutLinksInput>
-  }
+    where: LinkScalarWhereInput;
+    data: XOR<
+      LinkUpdateManyMutationInput,
+      LinkUncheckedUpdateManyWithoutLinksInput
+    >;
+  };
 
   export type LinkScalarWhereInput = {
-    AND?: Enumerable<LinkScalarWhereInput>
-    OR?: Enumerable<LinkScalarWhereInput>
-    NOT?: Enumerable<LinkScalarWhereInput>
-    id?: StringFilter | string
-    createdAt?: DateTimeFilter | Date | string
-    updatedAt?: DateTimeFilter | Date | string
-    url?: StringFilter | string
-    shortUrl?: StringFilter | string
-    userId?: StringNullableFilter | string | null
-  }
+    AND?: Enumerable<LinkScalarWhereInput>;
+    OR?: Enumerable<LinkScalarWhereInput>;
+    NOT?: Enumerable<LinkScalarWhereInput>;
+    id?: StringFilter | string;
+    createdAt?: DateTimeFilter | Date | string;
+    updatedAt?: DateTimeFilter | Date | string;
+    url?: StringFilter | string;
+    shortUrl?: StringFilter | string;
+    userId?: StringNullableFilter | string | null;
+  };
 
   export type LinkCreateManyUserInput = {
-    id?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    url: string
-    shortUrl: string
-  }
+    id?: string;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    url: string;
+    shortUrl: string;
+  };
 
   export type LinkUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    url?: StringFieldUpdateOperationsInput | string
-    shortUrl?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    url?: StringFieldUpdateOperationsInput | string;
+    shortUrl?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type LinkUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    url?: StringFieldUpdateOperationsInput | string
-    shortUrl?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    url?: StringFieldUpdateOperationsInput | string;
+    shortUrl?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type LinkUncheckedUpdateManyWithoutLinksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    url?: StringFieldUpdateOperationsInput | string
-    shortUrl?: StringFieldUpdateOperationsInput | string
-  }
-
-
+    id?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    url?: StringFieldUpdateOperationsInput | string;
+    shortUrl?: StringFieldUpdateOperationsInput | string;
+  };
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
    */
 
   export type BatchPayload = {
-    count: number
-  }
+    count: number;
+  };
 
   /**
    * DMMF

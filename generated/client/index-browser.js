@@ -1,14 +1,12 @@
-
 Object.defineProperty(exports, "__esModule", { value: true });
 
 const {
-  Decimal
-} = require('./runtime/index-browser')
+  Decimal,
+} = require("./runtime/index-browser");
 
+const Prisma = {};
 
-const Prisma = {}
-
-exports.Prisma = Prisma
+exports.Prisma = Prisma;
 
 /**
  * Prisma Client JS version: 3.15.2
@@ -16,97 +14,108 @@ exports.Prisma = Prisma
  */
 Prisma.prismaVersion = {
   client: "3.15.2",
-  engine: "461d6a05159055555eb7dfb337c9fb271cbd4d7e"
-}
+  engine: "461d6a05159055555eb7dfb337c9fb271cbd4d7e",
+};
 
 Prisma.PrismaClientKnownRequestError = () => {
-  throw new Error(`PrismaClientKnownRequestError is unable to be run in the browser.
+  throw new Error(
+    `PrismaClientKnownRequestError is unable to be run in the browser.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)};
+  );
+};
 Prisma.PrismaClientUnknownRequestError = () => {
-  throw new Error(`PrismaClientUnknownRequestError is unable to be run in the browser.
+  throw new Error(
+    `PrismaClientUnknownRequestError is unable to be run in the browser.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
+  );
+};
 Prisma.PrismaClientRustPanicError = () => {
-  throw new Error(`PrismaClientRustPanicError is unable to be run in the browser.
+  throw new Error(
+    `PrismaClientRustPanicError is unable to be run in the browser.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
+  );
+};
 Prisma.PrismaClientInitializationError = () => {
-  throw new Error(`PrismaClientInitializationError is unable to be run in the browser.
+  throw new Error(
+    `PrismaClientInitializationError is unable to be run in the browser.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
+  );
+};
 Prisma.PrismaClientValidationError = () => {
-  throw new Error(`PrismaClientValidationError is unable to be run in the browser.
+  throw new Error(
+    `PrismaClientValidationError is unable to be run in the browser.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
-Prisma.Decimal = Decimal
+  );
+};
+Prisma.Decimal = Decimal;
 
 /**
  * Re-export of sql-template-tag
  */
 Prisma.sql = () => {
   throw new Error(`sqltag is unable to be run in the browser.
-In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`);
+};
 Prisma.empty = () => {
   throw new Error(`empty is unable to be run in the browser.
-In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`);
+};
 Prisma.join = () => {
   throw new Error(`join is unable to be run in the browser.
-In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`);
+};
 Prisma.raw = () => {
   throw new Error(`raw is unable to be run in the browser.
-In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-)}
-Prisma.validator = () => (val) => val
+In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`);
+};
+Prisma.validator = () => (val) => val;
 
 /**
  * Shorthand utilities for JSON filtering
  */
-Prisma.DbNull = 'DbNull'
-Prisma.JsonNull = 'JsonNull'
-Prisma.AnyNull = 'AnyNull'
+Prisma.DbNull = "DbNull";
+Prisma.JsonNull = "JsonNull";
+Prisma.AnyNull = "AnyNull";
 
 /**
  * Enums
  */
 // Based on
 // https://github.com/microsoft/TypeScript/issues/3192#issuecomment-261720275
-function makeEnum(x) { return x; }
+function makeEnum(x) {
+  return x;
+}
 
 exports.Prisma.LinkScalarFieldEnum = makeEnum({
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  url: 'url',
-  shortUrl: 'shortUrl',
-  userId: 'userId'
+  id: "id",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  url: "url",
+  shortUrl: "shortUrl",
+  userId: "userId",
 });
 
 exports.Prisma.UserScalarFieldEnum = makeEnum({
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  name: 'name',
-  email: 'email'
+  id: "id",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+  name: "name",
+  email: "email",
 });
 
 exports.Prisma.SortOrder = makeEnum({
-  asc: 'asc',
-  desc: 'desc'
+  asc: "asc",
+  desc: "desc",
 });
 
 exports.Prisma.QueryMode = makeEnum({
-  default: 'default',
-  insensitive: 'insensitive'
+  default: "default",
+  insensitive: "insensitive",
 });
 
-
 exports.Prisma.ModelName = makeEnum({
-  Link: 'Link',
-  User: 'User'
+  Link: "Link",
+  User: "User",
 });
 
 /**
@@ -117,9 +126,9 @@ class PrismaClient {
     throw new Error(
       `PrismaClient is unable to be run in the browser.
 In case this error is unexpected for you, please report it in https://github.com/prisma/prisma/issues`,
-    )
+    );
   }
 }
-exports.PrismaClient = PrismaClient
+exports.PrismaClient = PrismaClient;
 
-Object.assign(exports, Prisma)
+Object.assign(exports, Prisma);
