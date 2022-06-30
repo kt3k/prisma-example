@@ -1,23 +1,26 @@
-Object.defineProperty(exports, "__esModule", { value: true });
+import edgeRuntime from "./runtime/edge.js";
+import "https://deno.land/std@0.145.0/dotenv/load.ts";
+
+const process = { env: Deno.env.toObject() };
 
 const {
-  PrismaClientKnownRequestError,
-  PrismaClientUnknownRequestError,
-  PrismaClientRustPanicError,
-  PrismaClientInitializationError,
-  PrismaClientValidationError,
-  decompressFromBase64,
-  getPrismaClient,
-  sqltag,
-  empty,
-  join,
-  raw,
   Decimal,
-  DecimalJsLike,
-} = require("./runtime/edge");
+  decompressFromBase64,
+  empty,
+  getPrismaClient,
+  join,
+  PrismaClientInitializationError,
+  PrismaClientKnownRequestError,
+  PrismaClientRustPanicError,
+  PrismaClientUnknownRequestError,
+  PrismaClientValidationError,
+  raw,
+  sqltag,
+} = edgeRuntime;
 
-const Prisma = {};
-
+export const Prisma = {};
+const exports = {};
+export default exports;
 exports.Prisma = Prisma;
 
 /**
@@ -160,6 +163,5 @@ config.injectableEdgeEnv = {
   },
 };
 
-const PrismaClient = getPrismaClient(config);
-exports.PrismaClient = PrismaClient;
+export const PrismaClient = getPrismaClient(config);
 Object.assign(exports, Prisma);

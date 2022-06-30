@@ -1,3 +1,4 @@
+const module = {};
 var hc = Object.create;
 var ir = Object.defineProperty;
 var yc = Object.getOwnPropertyDescriptor;
@@ -13642,3 +13643,5 @@ var Je = Z(Lo()), xd = ic.decompressFromBase64;
     unpack,
     warnEnvConflicts,
   });
+
+export default module.exports;
