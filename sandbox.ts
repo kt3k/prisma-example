@@ -1,3 +1,4 @@
+// @deno-types="./generated/client/index.d.ts"
 import { PrismaClient } from './generated/client/edge.js'
 
 const prisma = new PrismaClient()

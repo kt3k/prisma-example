@@ -1,6 +1,5 @@
-/// <reference types="node" />
 
-import { inspect } from "util";
+declare const customInspectSymbol: unique symbol;
 
 declare type Action =
   | keyof typeof DMMF.ModelAction
@@ -1470,7 +1469,7 @@ export declare class Sql {
   );
   get text(): string;
   get sql(): string;
-  [inspect.custom](): {
+  [customInspectSymbol](): {
     text: string;
     sql: string;
     values: Value[];
